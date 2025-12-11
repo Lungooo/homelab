@@ -1,0 +1,6 @@
+---
+- hosts: forgejo
+  become: true
+  roles:
+    - role: forgejo
+    - role: alma-auto-update

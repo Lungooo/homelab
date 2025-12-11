@@ -1,0 +1,41 @@
+---
+name: ntfy Notify
+
+on:
+  pull_request:
+    types:
+      - opened
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    if: github.actor == 'renovate[bot]'
+    steps:
+      - name: Extract PR Details
+        id: extract_pr
+        run: |
+          printf "pull_request_title=%s\n" "${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
+
+          if [[ "${{ github.event.pull_request.title }}" =~ v[0-9]+$ ]]; then
+            echo "message=Major version: Review required" >> $GITHUB_OUTPUT
+          else
+            echo "message=Minor/Patch version: Automated merge" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Notify ntfy
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: "https://ntfy.lungoo.de"
+          bearerToken: "${{ secrets.NTFY_TOKEN }}"
+          data: |
+            {
+              "topic": "homelab-alerts",
+              "title": "${{ steps.extract_pr.outputs.pull_request_title }}",
+              "message": "${{ steps.extract_pr.outputs.message }}",
+              "tags": ["information_source"],
+              "actions": [{ "action": "view", "label": "See PR", "url": "https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}" }]
+            }

@@ -1,0 +1,11 @@
+# ansible cache
+.ansible/
+
+# ansible inventory
+inventory/
+
+# Mac OS files
+.DS_Store
+
+# kustomize charts
+kubernetes/*/*/charts/

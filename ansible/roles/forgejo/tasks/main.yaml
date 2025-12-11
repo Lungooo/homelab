@@ -1,0 +1,78 @@
+---
+- name: Install forgejo binary
+  ansible.builtin.get_url:
+    url: 'https://codeberg.org/forgejo/forgejo/releases/download/v{{ forgejo_version }}/forgejo-{{ forgejo_version }}-{{ forgejo_package_type }}'
+    dest: '/usr/local/bin/forgejo'
+    owner: root
+    group: root
+    mode: '0755'
+    checksum: 'sha256:https://codeberg.org/forgejo/forgejo/releases/download/v{{ forgejo_version }}/forgejo-{{ forgejo_version }}-{{ forgejo_package_type }}.sha256'
+  notify: Restart Forgejo
+
+- name: Install git and git-lfs
+  ansible.builtin.package:
+    name:
+      - git
+      - git-lfs
+    state: present
+
+- name: Create git group
+  ansible.builtin.group:
+    name: git
+    system: true
+
+- name: Create git user
+  ansible.builtin.user:
+    system: true
+    shell: /bin/bash
+    comment: Git Version Control
+    group: git
+    home: /home/git
+    name: git
+
+- name: Create Forgejo data directory
+  ansible.builtin.file:
+    state: directory
+    path: '{{ item }}'
+    owner: git
+    group: git
+    mode: '0750'
+  loop:
+    - /var/lib/forgejo
+    - /var/lib/forgejo/data
+    - /var/lib/foregjo/log
+
+- name: Create Forgejo config directory
+  ansible.builtin.file:
+    state: directory
+    path: /etc/forgejo
+    owner: root
+    group: git
+    mode: '0750'
+
+- name: Copy Forgejo config
+  ansible.builtin.template:
+    src: app.j2
+    dest: /etc/forgejo/app.ini
+    owner: root
+    group: git
+    mode: '0640'
+  notify: Restart Forgejo
+
+- name: Install systemd service
+  ansible.builtin.get_url:
+    url: https://codeberg.org/forgejo/forgejo/raw/branch/forgejo/contrib/systemd/forgejo.service
+    dest: /etc/systemd/system/
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart Forgejo
+
+- name: Enable Git Protocol v2
+  ansible.builtin.copy:
+    src: 99-git.conf
+    dest: /etc/ssh/sshd_config.d/99-git.conf
+    owner: root
+    group: root
+    mode: '0600'
+  notify: Restart ssh

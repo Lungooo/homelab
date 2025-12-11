@@ -1,0 +1,7 @@
+---
+bitwarden-sdk-server:
+  enabled: true
+  podAnnotations:
+    secret.reloader.stakater.com/reload: "bitwarden-css-certs,bitwarden-secrets-manager,bitwarden-tls-certs,bitwarden-access-token"
+
+installCRDs: true

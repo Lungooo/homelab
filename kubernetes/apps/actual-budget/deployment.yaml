@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: actual-budget
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: actual-budget
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: actual-budget
+    spec:
+      containers:
+        - name: actual-budget
+          image: ghcr.io/actualbudget/actual
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 5006
+              protocol: TCP
+          resources:
+            limits:
+              memory: 150Mi
+            requests:
+              memory: 150Mi
+          volumeMounts:
+            - name: actual-budget-vol
+              mountPath: /data
+              subPath: data
+      volumes:
+        - name: actual-budget-vol
+          persistentVolumeClaim:
+            claimName: actual-budget-pvc
+      nodeSelector:
+        worker: "true"

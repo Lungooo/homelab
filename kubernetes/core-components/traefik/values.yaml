@@ -1,0 +1,69 @@
+---
+deployment:
+  enabled: true
+  replicas: 3
+  annotations: {}
+  podAnnotations: {}
+  additionalContainers: []
+  initContainers: []
+
+ingressRoute:
+  dashboard:
+    enabled: true
+    matchRule: Host(`traefik.home.lungoo.de`)
+    entryPoints:
+      - websecure
+    tls:
+      secretName: home-lungoo-de-tls
+
+providers:
+  kubernetesCRD:
+    enabled: true
+    ingressClass: traefik-external
+    allowExternalNameServices: true
+  kubernetesIngress:
+    enabled: true
+    allowExternalNameServices: true
+    publishedService:
+      enabled: false
+
+logs:
+  general:
+    level: "INFO"
+
+global:
+  checkNewVersion: false
+  sendAnonymousUsage: false
+
+additionalArguments:
+  - "--api.disabledashboardad"
+
+ports:
+  web:
+    redirections:
+      entryPoint:
+        to: websecure
+        scheme: https
+        priority: 10
+  websecure:
+    tls:
+      enabled: true
+    middlewares:
+      - traefik-securityheaders@kubernetescrd
+
+service:
+  enabled: true
+  type: LoadBalancer
+  annotations: {}
+  labels: {}
+  spec:
+    loadBalancerIP: 10.0.10.180
+    externalTrafficPolicy: Local
+  loadBalancerSourceRangers: []
+  externalIPs: []
+
+rbac:
+  enabled: true
+
+nodeSelector:
+  node-role.kubernetes.io/control-plane: "true"

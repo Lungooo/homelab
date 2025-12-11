@@ -1,0 +1,19 @@
+---
+githubConfigUrl: https://github.com/Lungooo/homelab
+githubConfigSecret: pre-defined-secret
+controllerServiceAccount:
+  namespace: arc-system
+  name: arc-gha-rs-controller
+containerMode:
+  type: kubernetes
+  kubernetesModeWorkVolumeClaim:
+    accessModes: ["ReadWriteOnce"]
+    resources:
+      requests:
+        storage: 1Gi
+  kubernetesModeServiceAccount:
+    annotations:
+template:
+  spec:
+    securityContext:
+      fsGroup: 1027

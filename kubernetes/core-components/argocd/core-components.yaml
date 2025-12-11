@@ -1,0 +1,25 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: core-components
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: http://10.0.10.101:3000/homelab/homelab.git
+    path: kubernetes/app-of-apps/core-components
+    targetRevision: HEAD
+    helm:
+      ignoreMissingValueFiles: true
+      valueFiles:
+        - values.yaml
+        - values-prod.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true

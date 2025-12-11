@@ -1,0 +1,23 @@
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-production
+  namespace: cert-manager
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: announcements-LetsEncrypt+tk_e3z5j6lk519qfdc13fr1zb4f3khak@ntfy.lungoo.de
+    privateKeySecretRef:
+      name: letsencrypt-production
+    solvers:
+      - dns01:
+          webhook:
+            groupName: com.netcup.webhook
+            solverName: netcup
+            config:
+              secretRef: netcup-secret
+              secretNamespace: cert-manager
+        selector:
+          dnsZones:
+            - "lungoo.de"

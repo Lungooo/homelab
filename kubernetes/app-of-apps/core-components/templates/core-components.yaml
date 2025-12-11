@@ -1,0 +1,28 @@
+{{- range .Values.core_components }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .name }}
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: http://10.0.10.101:3000/homelab/homelab.git
+    path: kubernetes/core-components/{{ .name }}
+    targetRevision: HEAD
+  destination:
+    namespace: {{ .namespace | default "default" }}
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      {{- if eq .name "external-secrets" }}
+      - ServerSideApply=true
+      {{- end }}
+      {{- if eq .name "github-arc-controller" }}
+      - ServerSideApply=true
+      {{- end }}
+    automated:
+      prune: true
+{{- end }}
