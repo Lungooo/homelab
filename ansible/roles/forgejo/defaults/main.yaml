@@ -1,6 +1,6 @@
 ---
 # renovate: datasource=forgejo-releases depName=forgejo/forgejo versioning=semver registryUrl=https://codeberg.org
-forgejo_version: 13.0.1
+forgejo_version: 13.0.3
 forgejo_package_type: linux-amd64
 forgejo_lfs_jwt_secret: REPLACE_ME_LFS_JWT_SECRET
 forgejo_jwt_secret: REPLACE_ME_JWT_SECRET
