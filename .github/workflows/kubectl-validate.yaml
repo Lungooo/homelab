@@ -21,7 +21,7 @@ jobs:
       apps_matrix: ${{ steps.changed-apps.outputs.apps_matrix }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -55,7 +55,7 @@ jobs:
         app: ${{ fromJSON(needs.changed-apps.outputs.apps_matrix) }}
     steps:
       - name: Checkout repo content
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
