@@ -27,7 +27,7 @@ jobs:
           fi
 
       - name: Notify ntfy
-        uses: fjogeleit/http-request-action@v1
+        uses: fjogeleit/http-request-action@v2
         with:
           url: "https://ntfy.lungoo.de"
           bearerToken: "${{ secrets.NTFY_TOKEN }}"
