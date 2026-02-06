@@ -17,12 +17,7 @@ spec:
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
-      {{- if eq .name "external-secrets" }}
       - ServerSideApply=true
-      {{- end }}
-      {{- if eq .name "github-arc-controller" }}
-      - ServerSideApply=true
-      {{- end }}
     automated:
       prune: true
 {{- end }}
