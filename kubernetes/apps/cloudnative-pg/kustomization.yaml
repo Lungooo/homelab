@@ -12,3 +12,4 @@ helmCharts:
 
 resources:
   - cnpg-storageclass.yaml
+  - psql-cluster.yaml
