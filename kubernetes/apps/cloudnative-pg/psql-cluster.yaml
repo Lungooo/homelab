@@ -4,6 +4,8 @@ kind: Cluster
 metadata:
   name: psql-cluster
   namespace: prod
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   instances: 3
 
