@@ -10,10 +10,11 @@ spec:
       Server: "" # prevent version disclosure
       X-Powered-By: "" # prevent version disclosure
       X-Forwarded-Proto: "https"
+      X-Robots-Tag: noindex, nofollow
       Permissions-Policy: "accelerometer=(), autoplay=(), camera=(), cross-origin-isolated=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(self), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(), gamepad=(), hid=(), idle-detection=(), interest-cohort=(), serial=(), unload=()"
       Cross-Origin-Embedder-Policy: "require-corp"
       Cross-Origin-Opener-Policy: "same-origin"
-      Cross-Origin-Resource-Policy: "same-origin"
+      Cross-Origin-Resource-Policy: "same-site"
       X-Permitted-Cross-Domain-Policies: "none"
     browserXssFilter: false # X-XSS-Protection – deprecated
     contentTypeNosniff: true # X-Content-Type-Options
@@ -22,8 +23,8 @@ spec:
     forceSTSHeader: true # HTTP-Strict-Transport-Security (HSTS)
     stsIncludeSubdomains: true # HTTP-Strict-Transport-Security (HSTS)
     stsPreload: true # HTTP-Strict-Transport-Security (HSTS)
-    stsSeconds: 31536000 # HTTP-Strict-Transport-Security (HSTS)
-    referrerPolicy: no-referrer # Referrer-Policy
+    stsSeconds: 63072000 # HTTP-Strict-Transport-Security (HSTS)
+    referrerPolicy: strict-origin-when-cross-origin # Referrer-Policy
     # contentSecurityPolicy: "default-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests" # Content-Security-Policy
     sslProxyHeaders:
       X-Forwarded-Proto: https
