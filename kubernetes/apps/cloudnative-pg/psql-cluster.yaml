@@ -1,0 +1,32 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: psql-cluster
+  namespace: prod
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  instances: 3
+
+  enableSuperuserAccess: true
+
+  storage:
+    storageClass: longhorn-cnpg-replica-storage
+    size: 20Gi
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: psql-cluster
+  namespace: testing
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  instances: 3
+
+  enableSuperuserAccess: true
+
+  storage:
+    storageClass: longhorn-cnpg-replica-storage
+    size: 20Gi
