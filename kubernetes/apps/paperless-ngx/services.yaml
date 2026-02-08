@@ -16,7 +16,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: paperless-webserver-service
+  name: paperless-webserver
 spec:
   type: ClusterIP
   selector:
