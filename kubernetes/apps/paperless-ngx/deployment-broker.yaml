@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paperless-broker
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: paperless-broker
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: paperless-broker
+    spec:
+      serviceAccountName: paperless-ngx
+      automountServiceAccountToken: false
+      containers:
+        - name: valkey
+          image: ghcr.io/valkey-io/valkey
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: valkey
+              containerPort: 6379
+              protocol: TCP
+          resources:
+            limits:
+              memory: 256Mi
+            requests:
+              memory: 128Mi
+          volumeMounts:
+            - name: broker-data
+              mountPath: /data
+      volumes:
+        - name: broker-data
+          persistentVolumeClaim:
+            claimName: paperless-broker-pvc
+      nodeSelector:
+        worker: "true"
