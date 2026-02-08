@@ -37,6 +37,7 @@ global:
 
 additionalArguments:
   - "--api.disabledashboardad"
+  - "--entrypoints.pg.address=:5432/tcp"
 
 ports:
   web:
@@ -52,6 +53,11 @@ ports:
         enabled: true
       middlewares:
         - traefik-securityheaders@kubernetescrd
+  pg:
+    port: 5432
+    expose: true
+    exposedPort: 5432
+    protocol: TCP
 
 service:
   enabled: true

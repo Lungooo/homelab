@@ -14,3 +14,4 @@ resources:
   - namespace.yaml
   - cnpg-storageclass.yaml
   - psql-cluster.yaml
+  - ingress.yaml
