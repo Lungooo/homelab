@@ -12,9 +12,10 @@ spec:
   storageClassName: ""
   claimRef:
     name: paperless-nfs-pvc
+    namespace: prod
   nfs:
     server: 10.0.20.10
-    path: /volume1/paperless_testing
+    path: /volume1/paperless
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

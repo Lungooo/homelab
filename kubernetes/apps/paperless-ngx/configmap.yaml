@@ -6,7 +6,7 @@ metadata:
 data:
   USERMAP_UID: "1030"
   USERMAP_GID: "100"
-  PAPERLESS_URL: "https://paperless-testing.home.lungoo.de"
+  PAPERLESS_URL: "https://paperless.home.lungoo.de"
   PAPERLESS_TIME_ZONE: "Europe/Berlin"
   PAPERLESS_OCR_LANGUAGE: "deu+eng"
   PAPERLESS_REDIS: "redis://paperless-broker:6379"

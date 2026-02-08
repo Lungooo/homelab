@@ -11,7 +11,7 @@ spec:
   tls:
     secretName: home-lungoo-de-tls
   routes:
-    - match: Host(`paperless-testing.home.lungoo.de`)
+    - match: Host(`paperless.home.lungoo.de`)
       kind: Rule
       services:
         - name: paperless-webserver
