@@ -9,9 +9,18 @@ helmCharts:
     repo: https://cloudnative-pg.github.io/charts
     includeCRDs: true
     version: 0.27.1
+  - namespace: cnpg-system
+    name: plugin-barman-cloud
+    releaseName: plugin-barman-cloud
+    repo: https://cloudnative-pg.github.io/charts
+    includeCRDs: true
+    version: 0.5.0
 
 resources:
   - namespace.yaml
   - cnpg-storageclass.yaml
   - psql-cluster.yaml
   - ingress.yaml
+  - secrets.yaml
+  - objectstore.yaml
+  - scheduled-backup.yaml

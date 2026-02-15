@@ -1,0 +1,21 @@
+---
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: cnpg-backups
+  namespace: prod
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  configuration:
+    destinationPath: s3://cnpg-backups/
+    endpointURL: https://s3.home.lungoo.de
+    s3Credentials:
+      accessKeyId:
+        name: cnpg-backups-credentials
+        key: ACCESS_KEY_ID
+      secretAccessKey:
+        name: cnpg-backups-credentials
+        key: ACCESS_SECRET_KEY
+    wal:
+      compression: gzip

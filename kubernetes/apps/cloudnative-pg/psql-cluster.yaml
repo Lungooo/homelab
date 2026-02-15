@@ -11,6 +11,12 @@ spec:
 
   enableSuperuserAccess: true
 
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: cnpg-backups
+
   storage:
     storageClass: longhorn-cnpg-replica-storage
     size: 20Gi
