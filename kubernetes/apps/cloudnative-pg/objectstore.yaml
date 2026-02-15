@@ -9,7 +9,7 @@ metadata:
 spec:
   configuration:
     destinationPath: s3://cnpg-backups/
-    endpointURL: https://s3.home.lungoo.de
+    endpointURL: http://garage-s3-service.external-services:3900
     s3Credentials:
       accessKeyId:
         name: cnpg-backups-credentials
