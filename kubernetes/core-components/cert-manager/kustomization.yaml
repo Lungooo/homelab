@@ -19,5 +19,6 @@ helmCharts:
 
 resources:
   - netcup-secret.yaml
+  - zerossl-secret.yaml
   - issuer.yaml
   - certificates.yaml
