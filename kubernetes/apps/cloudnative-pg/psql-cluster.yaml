@@ -8,8 +8,22 @@ metadata:
     argocd.argoproj.io/sync-wave: "1"
 spec:
   instances: 3
+  imageName: ghcr.io/lungooo/cloudnative-vectorchord:18
 
   enableSuperuserAccess: true
+
+  postgresql:
+    # TODO: Move to vectorchord extension volume once k3s supports volume extensions
+    #   extensions:
+    #     - name: vchord
+    #       image:
+    #         reference: ghcr.io/tensorchord/vchord-scratch:pg18-v1.1.0
+    #       dynamic_library_path:
+    #         - /usr/lib/postgresql/18/lib/
+    #       extension_control_path:
+    #         - /usr/share/postgresql/18/
+    shared_preload_libraries:
+      - "vchord"
 
   plugins:
     - name: barman-cloud.cloudnative-pg.io

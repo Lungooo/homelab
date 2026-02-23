@@ -1,0 +1,18 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: immich-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: home-lungoo-de-tls
+  routes:
+    - match: Host(`immich.home.lungoo.de`)
+      kind: Rule
+      services:
+        - name: immich-server
+          port: 2283
