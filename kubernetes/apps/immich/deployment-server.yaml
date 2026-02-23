@@ -45,9 +45,9 @@ spec:
                 name: immich-secret
           resources:
             limits:
-              memory: 2Gi
+              memory: 4Gi
             requests:
-              memory: 512Mi
+              memory: 2Gi
           volumeMounts:
             - name: immich-nfs
               mountPath: /data
