@@ -53,6 +53,10 @@ ports:
         enabled: true
       middlewares:
         - traefik-securityheaders@kubernetescrd
+    transport:
+      respondingTimeouts:
+        readTimeout: 300s
+        idleTimeout: 300s
   pg:
     port: 5432
     expose:
