@@ -4,7 +4,7 @@ kind: Kustomization
 
 images:
   - name: ghcr.io/paperless-ngx/paperless-ngx
-    newTag: 2.20.8@sha256:e231ec11a1907bfdf172b4f120b4ef1994feb71e6cc624e8b88c53e2da3dfb62
+    newTag: 2.20.9@sha256:1d99ede700ffdf7aa44899b5fee29c8c279f175769b6cb295e91e9f15772728e
   - name: ghcr.io/valkey-io/valkey
     newTag: 9.0.3@sha256:2b8f23e556fd39135f24b50719629d2fc3e8f6f463357f7af469ef6e7b9b1dc3
   - name: docker.io/gotenberg/gotenberg
