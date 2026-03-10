@@ -6,7 +6,7 @@ images:
   - name: ghcr.io/paperless-ngx/paperless-ngx
     newTag: 2.20.10@sha256:07a0b4ba01ce377c82a0636e16c0c3d931fde5b7e9304de6601986cc42d9b6e6
   - name: ghcr.io/valkey-io/valkey
-    newTag: 9.0.3@sha256:2bce660b767cb62c8c0ea020e94a230093be63dbd6af4f21b044960517a5842d
+    newTag: 9.0.3@sha256:3eeb09785cd61ec8e3be35f8804c8892080f3ca21934d628abc24ee4ed1698f6
   - name: docker.io/gotenberg/gotenberg
     newTag: 8.27.0@sha256:d71ab8c13b6bd47c7bc81195082005dfb17eaa75e8b1fadd347a64ee66ed98d5
   - name: docker.io/apache/tika
