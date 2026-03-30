@@ -33,7 +33,7 @@ spec:
 
   storage:
     storageClass: longhorn-cnpg-replica-storage
-    size: 20Gi
+    size: 50Gi
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
@@ -49,4 +49,4 @@ spec:
 
   storage:
     storageClass: longhorn-cnpg-replica-storage
-    size: 50Gi
+    size: 20Gi
