@@ -49,4 +49,4 @@ spec:
 
   storage:
     storageClass: longhorn-cnpg-replica-storage
-    size: 20Gi
+    size: 50Gi
