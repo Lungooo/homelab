@@ -6,7 +6,7 @@ images:
   - name: ghcr.io/immich-app/immich-server
     newTag: v2.6.3@sha256:0cc1f82953d9598eb9e9dd11cbde1f50fe54f9c46c4506b089e8ad7bfc9d1f0c
   - name: ghcr.io/valkey-io/valkey
-    newTag: 9.0.3@sha256:3eeb09785cd61ec8e3be35f8804c8892080f3ca21934d628abc24ee4ed1698f6
+    newTag: 9.0.3@sha256:3b55fbaa0cd93cf0d9d961f405e4dfcc70efe325e2d84da207a0a8e6d8fde4f9
   - name: ghcr.io/immich-app/immich-machine-learning
     newTag: v2.6.3@sha256:33b17015c3d14f2565e9b8cd36b48a70027b14b5cd20da7fbfff21a370b0309c
 
