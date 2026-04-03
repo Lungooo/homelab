@@ -8,7 +8,7 @@ images:
   - name: ghcr.io/valkey-io/valkey
     newTag: 9.0.3@sha256:3eeb09785cd61ec8e3be35f8804c8892080f3ca21934d628abc24ee4ed1698f6
   - name: docker.io/gotenberg/gotenberg
-    newTag: 8.29.1@sha256:d89fe8c26bc230d4551b351e8a6249d4b42bb469289a26486447614a0cecee5d
+    newTag: 8.29.1@sha256:36c925776fa0db0fd1030408d131fde7ac3453027a559883555155b72adb16a7
   - name: docker.io/apache/tika
     newTag: 3.3.0.0@sha256:2a565f1ea1290bdcb74a7d35957d16a989ed44ef98790dcdcc28121d728fa583
 
