@@ -5,7 +5,7 @@ namespace: prod
 
 images:
   - name: ghcr.io/gchq/cyberchef
-    newTag: 10.22.1@sha256:3aa4eb2c52c9f9e22bda450cae3187e1de114581f7850d8136c98164837a406c
+    newTag: 10.23.0@sha256:9a3449fc564dcf86ba0165dadffe0eb95f207bfb1123672ec739eaa99aace050
 
 resources:
   - deployment.yaml
