@@ -4,11 +4,11 @@ kind: Kustomization
 
 images:
   - name: ghcr.io/immich-app/immich-server
-    newTag: v2.7.0@sha256:ee60b98e7fcc836d61d7f5e7689514f3de7a9480f31ec6ca62d6221056b46ae1
+    newTag: v2.7.2@sha256:6a2952539e2a9c8adcf6fb74850bb1ba7e1db2804050acea21baafdc9154c430
   - name: ghcr.io/valkey-io/valkey
     newTag: 9.0.3@sha256:3b55fbaa0cd93cf0d9d961f405e4dfcc70efe325e2d84da207a0a8e6d8fde4f9
   - name: ghcr.io/immich-app/immich-machine-learning
-    newTag: v2.7.0@sha256:aff861526d690bb720130a46bd48ee2827c44d2f601a194e61f31e979a591952
+    newTag: v2.7.2@sha256:2f381909ca2b669f22bf872ee0bea6b7d16dfce109431647a8cad0f2571ff053
 
 resources:
   - configmap.yaml
