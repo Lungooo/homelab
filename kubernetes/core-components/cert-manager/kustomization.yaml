@@ -15,7 +15,7 @@ helmCharts:
     releaseName: cert-manager-webhook-netcup
     repo: https://aellwein.github.io/cert-manager-webhook-netcup/charts/
     includeCRDs: true
-    version: 1.0.43
+    version: 1.0.44
 
 resources:
   - netcup-secret.yaml
