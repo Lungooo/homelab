@@ -14,7 +14,7 @@ helmCharts:
     releaseName: plugin-barman-cloud
     repo: https://cloudnative-pg.github.io/charts
     includeCRDs: true
-    version: 0.5.0
+    version: 0.6.0
 
 resources:
   - namespace.yaml
