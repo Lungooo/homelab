@@ -16,7 +16,7 @@ jobs:
     runs-on: arc-runner-set
     name: Find changed ansible-files
     container:
-      image: alpine/k8s:1.35.3@sha256:097aa60cbef561146757c7494468e9d7b04d843597ad1a1515ed09d0708c8014
+      image: alpine/k8s:1.35.4@sha256:d9aeef2665287b9918bc57c539ba95382ba4c8d52c8b1310df5666a89d9a3d04
     outputs:
       ansible-files_matrix: ${{ steps.changed-ansible-files.outputs.ansible-files_matrix }}
     steps:
@@ -68,7 +68,7 @@ jobs:
     name: Validation result
     needs: validation
     container:
-      image: alpine/k8s:1.35.3@sha256:097aa60cbef561146757c7494468e9d7b04d843597ad1a1515ed09d0708c8014
+      image: alpine/k8s:1.35.4@sha256:d9aeef2665287b9918bc57c539ba95382ba4c8d52c8b1310df5666a89d9a3d04
     steps:
       - name: Set status based on build
         run: |
