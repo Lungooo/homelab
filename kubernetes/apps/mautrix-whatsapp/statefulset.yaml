@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mautrix-whatsapp
+spec:
+  serviceName: mautrix-whatsapp
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mautrix-whatsapp
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mautrix-whatsapp
+    spec:
+      serviceAccountName: mautrix-whatsapp
+      automountServiceAccountToken: false
+      containers:
+        - name: mautrix-whatsapp
+          image: dock.mau.dev/mautrix/whatsapp
+          imagePullPolicy: IfNotPresent
+          workingDir: /data
+          command:
+            - /usr/bin/mautrix-whatsapp
+            - --no-update
+          ports:
+            - name: http
+              containerPort: 29318
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: mautrix-whatsapp-secret
+          resources:
+            limits:
+              memory: 512Mi
+            requests:
+              memory: 256Mi
+          volumeMounts:
+            - name: config
+              mountPath: /data/config.yaml
+              subPath: config.yaml
+      volumes:
+        - name: config
+          configMap:
+            name: mautrix-wa-config

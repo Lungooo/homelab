@@ -1,0 +1,10 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: psql-cluster-mautrix-whatsapp
+spec:
+  name: mautrix_whatsapp
+  owner: mautrix_whatsapp
+  cluster:
+    name: psql-cluster
