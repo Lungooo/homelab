@@ -1,0 +1,10 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: psql-cluster-mautrix-signal
+spec:
+  name: mautrix_signal
+  owner: mautrix_signal
+  cluster:
+    name: psql-cluster
