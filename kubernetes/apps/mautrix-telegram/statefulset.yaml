@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mautrix-telegram
+spec:
+  serviceName: mautrix-telegram
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mautrix-telegram
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mautrix-telegram
+    spec:
+      serviceAccountName: mautrix-telegram
+      automountServiceAccountToken: false
+      containers:
+        - name: mautrix-telegram
+          image: dock.mau.dev/mautrix/telegram
+          imagePullPolicy: IfNotPresent
+          workingDir: /data
+          command:
+            - /usr/bin/mautrix-telegram
+            - --no-update
+          ports:
+            - name: http
+              containerPort: 29317
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: mautrix-telegram-secret
+          resources:
+            limits:
+              memory: 512Mi
+            requests:
+              memory: 256Mi
+          volumeMounts:
+            - name: config
+              mountPath: /data/config.yaml
+              subPath: config.yaml
+      volumes:
+        - name: config
+          configMap:
+            name: mautrix-tg-config
