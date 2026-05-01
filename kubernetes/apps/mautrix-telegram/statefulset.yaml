@@ -26,7 +26,7 @@ spec:
             - --no-update
           ports:
             - name: http
-              containerPort: 29318
+              containerPort: 29317
               protocol: TCP
           envFrom:
             - secretRef:

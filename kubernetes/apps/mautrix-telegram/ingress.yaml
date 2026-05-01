@@ -15,4 +15,4 @@ spec:
       kind: Rule
       services:
         - name: mautrix-telegram
-          port: 29318
+          port: 29317
