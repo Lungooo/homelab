@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mautrix-signal
+spec:
+  serviceName: mautrix-signal
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mautrix-signal
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mautrix-signal
+    spec:
+      serviceAccountName: mautrix-signal
+      automountServiceAccountToken: false
+      containers:
+        - name: mautrix-signal
+          image: dock.mau.dev/mautrix/signal
+          imagePullPolicy: IfNotPresent
+          workingDir: /data
+          command:
+            - /usr/bin/mautrix-signal
+            - --no-update
+          ports:
+            - name: http
+              containerPort: 29328
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: mautrix-signal-secret
+          resources:
+            limits:
+              memory: 512Mi
+            requests:
+              memory: 256Mi
+          volumeMounts:
+            - name: config
+              mountPath: /data/config.yaml
+              subPath: config.yaml
+      volumes:
+        - name: config
+          configMap:
+            name: mautrix-signal-config

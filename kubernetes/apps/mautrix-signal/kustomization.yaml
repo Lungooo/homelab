@@ -1,0 +1,20 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+images:
+  - name: dock.mau.dev/mautrix/signal
+    newTag: v26.04@sha256:aa3891001893be88ef6f7c692d254a1ed11dbcaf29d3c02e8ed4ddf9df259244
+
+configMapGenerator:
+  - name: mautrix-signal-config
+    files:
+      - config.yaml
+
+resources:
+  - database.yaml
+  - ingress.yaml
+  - secrets.yaml
+  - service.yaml
+  - serviceaccount.yaml
+  - statefulset.yaml
