@@ -516,7 +516,7 @@ encryption:
 # `BRIDGE_appservice.as_token` would work as well, but can't be set in a shell as easily.
 #
 # If this is null, reading config fields from environment will be disabled.
-env_config_prefix: MAUTRIX_SIGNAL_
+env_config_prefix: MAUTRIX_SIG_
 
 # Logging config. See https://github.com/tulir/zeroconfig for details.
 logging:
