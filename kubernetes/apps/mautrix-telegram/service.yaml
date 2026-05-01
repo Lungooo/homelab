@@ -9,7 +9,7 @@ spec:
   selector:
     app.kubernetes.io/name: mautrix-telegram
   ports:
-    - port: 29318
-      targetPort: 29318
+    - port: 29317
+      targetPort: 29317
       protocol: TCP
       name: http
