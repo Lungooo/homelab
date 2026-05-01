@@ -197,23 +197,23 @@ bridge:
     #   delete - Remove all ghosts and users from the room (i.e. delete it)
     cleanup_on_logout:
         # Should cleanup on logout be enabled at all?
-        enabled: false
+        enabled: true
         # Settings for manual logouts (explicitly initiated by the Matrix user)
         manual:
             # Action for private portals which will never be shared with other Matrix users.
-            private: nothing
+            private: delete
             # Action for portals with a relay user configured.
-            relayed: nothing
+            relayed: unbridge
             # Action for portals which may be shared, but don't currently have any other Matrix users.
-            shared_no_users: nothing
+            shared_no_users: unbridge
             # Action for portals which have other logged-in Matrix users.
             shared_has_users: nothing
         # Settings for credentials being invalidated (initiated by the remote network, possibly through user action).
         # Keys have the same meanings as in the manual section.
         bad_credentials:
-            private: nothing
-            relayed: nothing
-            shared_no_users: nothing
+            private: delete
+            relayed: unbridge
+            shared_no_users: unbridge
             shared_has_users: nothing
     
     # Settings for relay mode
@@ -344,7 +344,7 @@ appservice:
     # A public address that external services can use to reach this appservice.
     # This is only needed for things like public media. A reverse proxy is generally necessary when using this field.
     # This value doesn't affect the registration file.
-    public_address: https://mautrix-whatsapp.home.lungoo.de
+    public_address: ""
     
     # The hostname and port where this appservice should listen.
     # For Docker, you generally have to change the hostname to 0.0.0.0.
@@ -363,7 +363,7 @@ appservice:
         avatar: mxc://maunium.net/NeXNQarUbrlYBiPCpprYsRqr
     
     # Whether to receive ephemeral events via appservice transactions.
-    ephemeral_events: true
+    ephemeral_events: false
     # Should incoming events be handled asynchronously?
     # This may be necessary for large public instances with lots of messages going through.
     # However, messages will not be guaranteed to be bridged in the same order they were sent in.
@@ -472,7 +472,7 @@ direct_media:
 # See https://docs.mau.fi/bridges/general/backfill.html for more details.
 backfill:
     # Whether to do backfilling at all.
-    enabled: false
+    enabled: true
     # Maximum number of messages to backfill in empty rooms.
     # If this is zero or negative, backfill will be disabled in new rooms.
     max_initial_messages: 50000
@@ -507,7 +507,7 @@ backfill:
 double_puppet:
     # Servers to always allow double puppeting from.
     # This is only for other servers and should NOT contain the server the bridge is on.
-    servers: null
+    servers: ""
     # Whether to allow client API URL discovery for other servers. When using this option,
     # users on other servers can use double puppeting even if their server URLs aren't
     # explicitly added to the servers map above.
