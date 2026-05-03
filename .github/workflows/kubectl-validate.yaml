@@ -16,7 +16,7 @@ jobs:
     runs-on: arc-runner-set
     name: Find changed apps
     container:
-      image: alpine/k8s:1.35.4@sha256:d9aeef2665287b9918bc57c539ba95382ba4c8d52c8b1310df5666a89d9a3d04
+      image: alpine/k8s:1.36.0@sha256:c105e4eaa265c617e43be34fffc7d9961de76b65a1e520179ed61e2f3a9fabf7
     outputs:
       apps_matrix: ${{ steps.changed-apps.outputs.apps_matrix }}
     steps:
@@ -49,7 +49,7 @@ jobs:
     name: Validate ${{ matrix.app }}
     needs: changed-apps
     container:
-      image: alpine/k8s:1.35.4@sha256:d9aeef2665287b9918bc57c539ba95382ba4c8d52c8b1310df5666a89d9a3d04
+      image: alpine/k8s:1.36.0@sha256:c105e4eaa265c617e43be34fffc7d9961de76b65a1e520179ed61e2f3a9fabf7
     strategy:
       matrix:
         app: ${{ fromJSON(needs.changed-apps.outputs.apps_matrix) }}
@@ -71,7 +71,7 @@ jobs:
     name: Validation result
     needs: validation
     container:
-      image: alpine/k8s:1.35.4@sha256:d9aeef2665287b9918bc57c539ba95382ba4c8d52c8b1310df5666a89d9a3d04
+      image: alpine/k8s:1.36.0@sha256:c105e4eaa265c617e43be34fffc7d9961de76b65a1e520179ed61e2f3a9fabf7
     steps:
       - name: Set status based on build
         run: |
