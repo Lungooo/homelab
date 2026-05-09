@@ -14,4 +14,4 @@ spec:
       kind: Rule
       services:
         - name: cyberchef-service
-          port: 80
+          port: 8080
