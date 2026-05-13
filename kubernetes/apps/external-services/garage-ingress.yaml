@@ -33,11 +33,10 @@ kind: IngressRoute
 metadata:
   name: garage-webui-ingress
   namespace: external-services
-  annotations:
-    kubernetes.io/ingress.class: traefik-external
 spec:
   entryPoints:
     - websecure
+  ingressClassName: traefik-external
   tls:
     secretName: home-lungoo-de-tls
   routes:
@@ -81,11 +80,10 @@ kind: IngressRoute
 metadata:
   name: garage-s3-ingress
   namespace: external-services
-  annotations:
-    kubernetes.io/ingress.class: traefik-external
 spec:
   entryPoints:
     - websecure
+  ingressClassName: traefik-external
   tls:
     secretName: home-lungoo-de-tls
   routes:
