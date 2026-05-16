@@ -4,7 +4,7 @@ kind: Kustomization
 
 images:
   - name: dock.mau.dev/mautrix/telegram
-    newTag: v26.04@sha256:e274e3bbfd641f59f1b6b82774dce6964babcd571d15e67538457422d765c763
+    newTag: v26.05@sha256:91149cc6acee384f8778db6232c522201c8f9a99e56fa9e12ea8e9bf0d5bbe54
 
 configMapGenerator:
   - name: mautrix-tg-config
