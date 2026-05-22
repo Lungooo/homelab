@@ -49,7 +49,7 @@ jobs:
     name: Validate ${{ matrix.ansible-file }}
     needs: changed-ansible-files
     container:
-      image: pipelinecomponents/ansible-lint:0.79.11@sha256:c0d862eca7d64fb581d321acea1dbb846af8903ff4799624f89ef9263038d5c5
+      image: pipelinecomponents/ansible-lint:0.79.38@sha256:1c4d2abd372a2dce7ea1cb8e27b650db809115d410a87a4aba2438bd028de735
     strategy:
       matrix:
         ansible-file: ${{ fromJSON(needs.changed-ansible-files.outputs.ansible-files_matrix) }}
