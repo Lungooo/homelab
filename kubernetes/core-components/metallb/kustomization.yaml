@@ -5,4 +5,4 @@ kind: Kustomization
 resources:
   - IPAddressPool.yaml
   - L2Advertisement.yaml
-  - github.com/metallb/metallb/config/native?ref=v0.16.0
+  - github.com/metallb/metallb/config/native?ref=v0.16.1
