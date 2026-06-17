@@ -27,7 +27,7 @@ providers:
     publishedService:
       enabled: false
 
-logs:
+log:
   level: "INFO"
 
 global:
