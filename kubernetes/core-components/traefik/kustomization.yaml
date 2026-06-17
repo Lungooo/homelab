@@ -9,7 +9,7 @@ helmCharts:
     repo: https://helm.traefik.io/traefik
     includeCRDs: true
     valuesFile: values.yaml
-    version: 40.3.0
+    version: 41.0.0
 
 resources:
   - middlewares.yaml

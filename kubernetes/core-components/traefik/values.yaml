@@ -27,9 +27,8 @@ providers:
     publishedService:
       enabled: false
 
-logs:
-  general:
-    level: "INFO"
+log:
+  level: "INFO"
 
 global:
   checkNewVersion: false
