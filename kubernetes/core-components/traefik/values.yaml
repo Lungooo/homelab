@@ -28,8 +28,7 @@ providers:
       enabled: false
 
 logs:
-  general:
-    level: "INFO"
+  level: "INFO"
 
 global:
   checkNewVersion: false
