@@ -8,11 +8,22 @@ spec:
   selector:
     app.kubernetes.io/name: uc-intg-manager
   ports:
-    - port: 9090
-      targetPort: 9090
-      protocol: TCP
-      name: api
     - port: 9999
       targetPort: 9999
       protocol: TCP
       name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: uc-intg-api-service
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 10.0.10.181
+  selector:
+    app.kubernetes.io/name: uc-intg-manager
+  ports:
+    - port: 9090
+      targetPort: 9090
+      protocol: TCP
+      name: api
