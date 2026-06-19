@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: uc-intg-manager-service
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: uc-intg-manager
+  ports:
+    - port: 9999
+      targetPort: 9999
+      protocol: TCP
+      name: http
