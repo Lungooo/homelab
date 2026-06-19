@@ -18,6 +18,9 @@ spec:
           image: ghcr.io/jackjpowell/uc-intg-manager
           imagePullPolicy: IfNotPresent
           ports:
+            - name: api
+              containerPort: 9090
+              protocol: TCP
             - name: http
               containerPort: 9999
               protocol: TCP
