@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uc-intg-manager
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: uc-intg-manager
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: uc-intg-manager
+    spec:
+      containers:
+        - name: uc-intg-manager
+          image: ghcr.io/jackjpowell/uc-intg-manager
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: api
+              containerPort: 9090
+              protocol: TCP
+            - name: http
+              containerPort: 9999
+              protocol: TCP
+          resources:
+            limits:
+              memory: 150Mi
+            requests:
+              memory: 150Mi
+          volumeMounts:
+            - name: uc-intg-manager-config
+              mountPath: /config
+      volumes:
+        - name: uc-intg-manager-config
+          persistentVolumeClaim:
+            claimName: uc-intg-manager-pvc
+      nodeSelector:
+        worker: "true"

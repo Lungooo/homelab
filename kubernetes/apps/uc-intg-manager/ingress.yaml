@@ -1,0 +1,17 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: uc-intg-manager-ingress
+spec:
+  entryPoints:
+    - websecure
+  ingressClassName: traefik-external
+  tls:
+    secretName: home-lungoo-de-tls
+  routes:
+    - match: Host(`uc-intg-manager.home.lungoo.de`)
+      kind: Rule
+      services:
+        - name: uc-intg-manager-service
+          port: 9999
