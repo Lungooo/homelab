@@ -8,7 +8,7 @@ images:
     newTag: v2.0.5@sha256:3f032892fa7cba71f349bc66b984b23b9c44be485b84d93276b85dee534c6565
 
 resources:
-  - deplotyment.yaml
+  - deployment.yaml
   - ingress.yaml
   - service.yaml
   - pvc.yaml
