@@ -1,0 +1,61 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: seerr
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: seerr
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: seerr
+    spec:
+      serviceAccountName: seerr
+      automountServiceAccountToken: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+      containers:
+        - name: seerr
+          image: ghcr.io/seerr-team/seerr
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            httpGet:
+              path: /api/v1/settings/public
+              port: 5055
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /api/v1/settings/public
+              port: 5055
+          ports:
+            - name: http
+              containerPort: 5055
+              protocol: TCP
+          env:
+            - name: LOG_LEVEL
+              value: debug
+            - name: TZ
+              value: Europe/Berlin
+          resources:
+            limits:
+              memory: 1Gi
+            requests:
+              memory: 512Mi
+          volumeMounts:
+            - name: seerr-data
+              mountPath: /app/config
+      volumes:
+        - name: seerr-data
+          persistentVolumeClaim:
+            claimName: seerr-data-pvc
+      nodeSelector:
+        worker: "true"

@@ -1,0 +1,14 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+images:
+  - name: ghcr.io/seerr-team/seerr
+    newTag: v3.3.0@sha256:c92d2dc117f62185e7bcb88cd56efd374ea79210eaf433275449e8d5988eb5a8
+
+resources:
+  - deployment.yaml
+  - ingress.yaml
+  - pvc.yaml
+  - service.yaml
+  - serviceaccount.yaml
