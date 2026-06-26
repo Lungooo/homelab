@@ -1,0 +1,17 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: jellyfin-ingress
+spec:
+  entryPoints:
+    - websecure
+  ingressClassName: traefik-external
+  tls:
+    secretName: home-lungoo-de-tls
+  routes:
+    - match: Host(`jellyfin.home.lungoo.de`)
+      kind: Rule
+      services:
+        - name: jellyfin
+          port: 8096
