@@ -40,11 +40,11 @@ spec:
             - name: http
               containerPort: 5055
               protocol: TCP
-          env:
-            - name: LOG_LEVEL
-              value: debug
-            - name: TZ
-              value: Europe/Berlin
+          envFrom:
+            - configMapRef:
+                name: seerr-config
+            - secretRef:
+                name: seerr-secret
           resources:
             limits:
               memory: 1Gi
