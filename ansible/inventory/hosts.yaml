@@ -1,0 +1,28 @@
+---
+k3s:
+  hosts:
+    k3s-01:
+      ansible_host: 10.0.10.201
+    k3s-02:
+      ansible_host: 10.0.10.202
+    k3s-03:
+      ansible_host: 10.0.10.203
+    k3s-worker-01:
+      ansible_host: 10.0.10.204
+    k3s-worker-02:
+      ansible_host: 10.0.10.205
+    k3s-worker-03:
+      ansible_host: 10.0.10.206
+    k3s-longhorn-01:
+      ansible_host: 10.0.10.207
+    k3s-longhorn-02:
+      ansible_host: 10.0.10.208
+    k3s-longhorn-03:
+      ansible_host: 10.0.10.209
+
+almalinux:
+  children:
+    k3s:
+  hosts:
+    forgejo:
+      ansible_host: 10.0.10.101
