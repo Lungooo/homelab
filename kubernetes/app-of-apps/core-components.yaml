@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: http://10.0.10.101:3000/homelab/homelab.git
     path: kubernetes/app-of-apps/core-components
-    targetRevision: feature/migration
+    targetRevision: HEAD
     helm:
       valueFiles:
         - values.yaml
