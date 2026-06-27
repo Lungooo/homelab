@@ -1,11 +1,8 @@
 ---
 core_components:
   - name: argocd
-    namespace: argocd
   - name: cert-manager
-    namespace: cert-manager
   - name: external-secrets
-    namespace: external-secrets
   - name: github-arc-controller
     namespace: arc-system
   - name: github-arc-scale-set
@@ -14,9 +11,6 @@ core_components:
     namespace: longhorn-system
   - name: metallb
     namespace: metallb-system
-  - name: reflector
-    namespace: reflector
+  # - name: reflector
   - name: reloader
-    namespace: reloader
   - name: traefik
-    namespace: traefik

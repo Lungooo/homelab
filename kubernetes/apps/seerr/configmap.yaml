@@ -7,6 +7,6 @@ data:
   LOG_LEVE: "debug"
   DB_TYPE: "postgres"
   DB_NAME: "seerr"
-  DB_HOST: "psql-cluster-rw"
+  DB_HOST: "psql-cluster-rw.prod"
   DB_USER: "seerr"
   TZ: "Europe/Berlin"

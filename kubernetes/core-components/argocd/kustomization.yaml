@@ -4,9 +4,7 @@ kind: Kustomization
 
 resources:
   - github.com/argoproj/argo-cd/manifests/ha/cluster-install?ref=v3.4.4
-  # - ingress.yaml
-  # - core-components.yaml
-  # - prod-apps.yaml
+  - ingress.yaml
 
 patches:
   - path: argocd-cm-patch.yaml

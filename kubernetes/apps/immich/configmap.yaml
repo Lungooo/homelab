@@ -5,7 +5,7 @@ metadata:
   name: immich-config
 data:
   DB_DATABASE_NAME: "immich"
-  DB_HOSTNAME: "psql-cluster-rw"
+  DB_HOSTNAME: "psql-cluster-rw.prod"
   DB_USERNAME: "immich"
   DB_VECTOR_EXTENSION: "vectorchord"
   REDIS_HOSTNAME: "immich-valkey"

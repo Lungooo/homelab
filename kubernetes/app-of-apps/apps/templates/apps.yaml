@@ -1,4 +1,4 @@
-{{- range .Values.core_components }}
+{{- range .Values.apps }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: http://10.0.10.101:3000/homelab/homelab.git
-    path: kubernetes/core-components/{{ .name }}
+    path: kubernetes/apps/{{ .name }}
     targetRevision: feature/migration
   destination:
     namespace: {{ .namespace | default .name }}

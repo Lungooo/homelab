@@ -3,6 +3,7 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
   name: psql-cluster-seerr
+  namespace: prod
 spec:
   name: seerr
   owner: seerr

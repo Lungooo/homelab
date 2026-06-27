@@ -1,0 +1,17 @@
+---
+apps:
+  - name: actual-budget
+  - name: cloudnative-pg
+    namespace: prod
+  - name: cyberchef
+  - name: demo
+  - name: external-services
+  - name: immich
+  - name: jellyfin
+  - name: mautrix-signal
+  - name: mautrix-telegram
+  - name: mautrix-whatsapp
+  - name: paperless-ngx
+    namespace: paperless
+  - name: seerr
+  - name: uc-intg-manager

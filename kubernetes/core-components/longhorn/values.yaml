@@ -4,6 +4,7 @@ preUpgradeChecker:
 
 persistence:
   defaultClassReplicaCount: 3
+  reclaimPolicy: Retain
 
 defaultBackupStore:
   backupTarget: cifs://10.0.20.10/longhorn

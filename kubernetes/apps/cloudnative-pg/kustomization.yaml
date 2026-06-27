@@ -22,5 +22,5 @@ resources:
   - psql-cluster.yaml
   - ingress.yaml
   - secrets.yaml
-  - objectstore.yaml
+  - objectstores.yaml
   - scheduled-backup.yaml

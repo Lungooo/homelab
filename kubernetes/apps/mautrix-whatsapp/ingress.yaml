@@ -7,11 +7,10 @@ spec:
   entryPoints:
     - websecure
   ingressClassName: traefik-external
-  tls:
-    secretName: home-lungoo-de-tls
   routes:
     - match: Host(`mautrix-whatsapp.home.lungoo.de`)
       kind: Rule
       services:
         - name: mautrix-whatsapp
           port: 29318
+

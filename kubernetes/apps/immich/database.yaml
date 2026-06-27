@@ -3,8 +3,14 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
   name: psql-cluster-immich
+  namespace: prod
 spec:
   name: immich
   owner: immich
   cluster:
     name: psql-cluster
+  extensions:
+    - name: vchord
+      ensure: present
+    - name: earthdistance
+      ensure: present

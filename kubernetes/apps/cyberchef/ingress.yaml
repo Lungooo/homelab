@@ -7,8 +7,6 @@ spec:
   entryPoints:
     - websecure
   ingressClassName: traefik-external
-  tls:
-    secretName: home-lungoo-de-tls
   routes:
     - match: Host(`cyberchef.home.lungoo.de`)
       kind: Rule

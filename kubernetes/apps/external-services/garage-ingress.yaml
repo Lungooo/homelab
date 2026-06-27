@@ -37,8 +37,6 @@ spec:
   entryPoints:
     - websecure
   ingressClassName: traefik-external
-  tls:
-    secretName: home-lungoo-de-tls
   routes:
     - match: Host(`garage.home.lungoo.de`)
       kind: Rule
@@ -84,8 +82,6 @@ spec:
   entryPoints:
     - websecure
   ingressClassName: traefik-external
-  tls:
-    secretName: home-lungoo-de-tls
   routes:
     - match: Host(`s3.home.lungoo.de`)
       kind: Rule

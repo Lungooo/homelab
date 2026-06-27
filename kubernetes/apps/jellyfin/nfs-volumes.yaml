@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: data-nfs-pv
+  name: jellyfin-data-nfs-pv
 spec:
   capacity:
     storage: 100Gi
@@ -12,7 +12,7 @@ spec:
   storageClassName: ""
   claimRef:
     name: data-nfs-pvc
-    namespace: prod
+    namespace: jellyfin
   nfs:
     server: 10.0.20.10
     path: /volume1/data
@@ -25,7 +25,7 @@ spec:
   accessModes:
     - ReadWriteMany
   storageClassName: ""
-  volumeName: data-nfs-pv
+  volumeName: jellyfin-data-nfs-pv
   resources:
     requests:
       storage: 100Gi

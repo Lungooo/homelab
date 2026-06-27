@@ -8,45 +8,72 @@ metadata:
     argocd.argoproj.io/sync-wave: "1"
 spec:
   instances: 3
-  imageName: ghcr.io/lungooo/cloudnative-vectorchord:18
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.3-system-trixie
 
   enableSuperuserAccess: true
 
-  postgresql:
-    # TODO: Move to vectorchord extension volume once k3s supports volume extensions
-    #   extensions:
-    #     - name: vchord
-    #       image:
-    #         reference: ghcr.io/tensorchord/vchord-scratch:pg18-v1.1.0
-    #       dynamic_library_path:
-    #         - /usr/lib/postgresql/18/lib/
-    #       extension_control_path:
-    #         - /usr/share/postgresql/18/
-    shared_preload_libraries:
-      - "vchord"
+  bootstrap:
+    recovery:
+      source: cnpg-backups
+
+  env:
+    - name: AWS_DEFAULT_REGION
+      value: de-fra-1
 
   plugins:
     - name: barman-cloud.cloudnative-pg.io
       isWALArchiver: true
       parameters:
-        barmanObjectName: cnpg-backups
+        barmanObjectName: cnpg-backups-v2
+
+  externalClusters:
+    - name: cnpg-backups
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: cnpg-backups
+          serverName: psql-cluster
+
+  postgresql:
+    extensions:
+      - name: vchord
+        image:
+          reference: ghcr.io/tensorchord/vchord-scratch:pg18-v1.1.1
+        dynamic_library_path:
+          - /usr/lib/postgresql/18/lib/
+        extension_control_path:
+          - /usr/share/postgresql/18/
+    shared_preload_libraries:
+      - "vchord"
 
   storage:
     storageClass: longhorn-cnpg-replica-storage
     size: 50Gi
----
-apiVersion: postgresql.cnpg.io/v1
-kind: Cluster
-metadata:
-  name: psql-cluster
-  namespace: testing
-  annotations:
-    argocd.argoproj.io/sync-wave: "1"
-spec:
-  instances: 3
 
-  enableSuperuserAccess: true
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: required
+    nodeSelector:
+      node-role.kubernetes.io/postgres: "true"
+    tolerations:
+      - key: node-role.kubernetes.io/postgres
+        operator: Exists
+        effect: NoSchedule
 
-  storage:
-    storageClass: longhorn-cnpg-replica-storage
-    size: 20Gi
+# ---
+# apiVersion: postgresql.cnpg.io/v1
+# kind: Cluster
+# metadata:
+#   name: psql-cluster
+#   namespace: testing
+#   annotations:
+#     argocd.argoproj.io/sync-wave: "1"
+# spec:
+#   instances: 3
+#
+#   enableSuperuserAccess: true
+#
+#   storage:
+#     storageClass: longhorn-cnpg-replica-storage
+#     size: 20Gi

@@ -2,14 +2,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: prod
+  name: apps
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: http://10.0.10.101:3000/homelab/homelab.git
-    path: kubernetes/app-of-apps/prod
-    targetRevision: HEAD
+    path: kubernetes/app-of-apps/apps
+    targetRevision: feature/migration
+    helm:
+      valueFiles:
+        - values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
@@ -17,5 +20,3 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
-    automated:
-      prune: true

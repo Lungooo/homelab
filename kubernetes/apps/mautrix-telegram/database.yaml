@@ -3,8 +3,10 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
   name: psql-cluster-mautrix-telegram
+  namespace: prod
 spec:
   name: mautrix_telegram
   owner: mautrix_telegram
   cluster:
     name: psql-cluster
+

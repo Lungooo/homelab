@@ -12,7 +12,7 @@ spec:
   storageClassName: ""
   claimRef:
     name: paperless-nfs-pvc
-    namespace: prod
+    namespace: paperless
   nfs:
     server: 10.0.20.10
     path: /volume1/paperless

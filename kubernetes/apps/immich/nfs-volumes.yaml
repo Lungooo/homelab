@@ -12,7 +12,7 @@ spec:
   storageClassName: ""
   claimRef:
     name: immich-nfs-pvc
-    namespace: prod
+    namespace: immich
   nfs:
     server: 10.0.20.10
     path: /volume1/immich
