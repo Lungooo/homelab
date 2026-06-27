@@ -1,0 +1,78 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: arr
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: arr
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: arr
+    spec:
+      serviceAccountName: arr
+      automountServiceAccountToken: false
+      initContainers:
+        - name: configure-sysctl
+          image: public.ecr.aws/docker/library/busybox
+          imagePullPolicy: IfNotPresent
+          command:
+            - "sysctl"
+            - "-w"
+            - "net.ipv4.conf.all.src_valid_mark=1"
+          securityContext:
+            privileged: true
+      containers:
+        - name: sabnzbdvpn
+          image: ghcr.io/binhex/arch-sabnzbdvpn
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+            - name: privoxy
+              containerPort: 8118
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: arr-config
+            - configMapRef:
+                name: sabnzbdvpn-config
+          resources:
+            limits:
+              memory: 1Gi
+            requests:
+              memory: 512Mi
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+          volumeMounts:
+            - name: sabnzbdvpn-config
+              mountPath: /config
+            - name: data-nfs
+              mountPath: /nfs/data/03_media/03_usenet/01_complete
+              subPath: 03_media/03_usenet/01_complete
+        - name: socat-relay
+          image: docker.io/alpine/socat
+          args:
+            - "TCP-LISTEN:9119,fork,bind=0.0.0.0"
+            - "TCP:127.0.0.1:8118"
+          ports:
+            - name: privoxy-relay
+              containerPort: 9119
+              protocol: TCP
+      volumes:
+        - name: sabnzbdvpn-config
+          persistentVolumeClaim:
+            claimName: sabnzbdvpn-config-pvc
+        - name: data-nfs
+          persistentVolumeClaim:
+            claimName: data-nfs-pvc
+      nodeSelector:
+        worker: "true"

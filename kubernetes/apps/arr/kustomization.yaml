@@ -1,0 +1,19 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+images:
+  - name: public.ecr.aws/docker/library/busybox
+    newTag: 1.38.0@sha256:1cfa4e2b09e127b9c4ed43578d3f3c18e7d44ea47b9ea98475c0cbe9086525f8
+  - name: ghcr.io/binhex/arch-sabnzbdvpn
+    newTag: 5.0.4-1-01@sha256:f9c6e4131a003ff8d033949afa08e3555cddcccbff51375c920f3755438e2b06
+  - name: docker.io/alpine/socat
+    newTag: 1.8.1.3@sha256:b991911ea370c3b6409ade77746b81eb97bf715d87f7dde2a45832d6bee34872
+
+resources:
+  - configmaps.yaml
+  - deployment.yaml
+  - ingress.yaml
+  - pvcs.yaml
+  - serviceaccount.yaml
+  - services.yaml
