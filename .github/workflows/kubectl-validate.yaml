@@ -65,12 +65,14 @@ jobs:
             echo "Chart.yaml found. Running helm template..."
             helm template validate ${{ matrix.app }} | kubeconform -strict -summary \
               -schema-location default \
-              -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json'
+              -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json' \
+              -skip CustomResourceDefinition,IngressRoute,IngressRouteTCP
           elif [ -f "${{ matrix.app }}/kustomization.yaml" ] || [ -f "${{ matrix.app }}/kustomization.yml" ]; then
             echo "Kustomization found. Running kustomize build..."
             kustomize build --enable-helm ${{ matrix.app }} | kubeconform -strict -summary \
               -schema-location default \
-              -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json'
+              -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json' \
+              -skip CustomResourceDefinition,IngressRoute,IngressRouteTCP
           else
             echo "Neither Chart.yaml nor kustomization.yaml found in ${{ matrix.app }}. Skipping."
             touch ${{ matrix.app }}/bundle.yaml

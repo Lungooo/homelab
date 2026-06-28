@@ -12,6 +12,5 @@ helmCharts:
     version: 0.14.2
 
 resources:
-  - arc-runner-storageclass
   - rbac.yaml
   - secret.yaml
