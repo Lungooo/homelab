@@ -63,10 +63,14 @@ jobs:
         run: |
           if [ -f "${{ matrix.app }}/Chart.yaml" ]; then
             echo "Chart.yaml found. Running helm template..."
-            helm template validate ${{ matrix.app }} | kubeconform -strict -summary
+            helm template validate ${{ matrix.app }} | kubeconform -strict -summary \
+              -schema-location default \
+              -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json'
           elif [ -f "${{ matrix.app }}/kustomization.yaml" ] || [ -f "${{ matrix.app }}/kustomization.yml" ]; then
             echo "Kustomization found. Running kustomize build..."
-            kustomize build --enable-helm ${{ matrix.app }} | kubeconform -strict -summary
+            kustomize build --enable-helm ${{ matrix.app }} | kubeconform -strict -summary \
+              -schema-location default \
+              -schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json'
           else
             echo "Neither Chart.yaml nor kustomization.yaml found in ${{ matrix.app }}. Skipping."
             touch ${{ matrix.app }}/bundle.yaml
