@@ -13,3 +13,18 @@ spec:
       services:
         - name: sabnzbd
           port: 8080
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: prowlarr-ingress
+spec:
+  entryPoints:
+    - websecure
+  ingressClassName: traefik-external
+  routes:
+    - match: Host(`prowlarr.home.lungoo.de`)
+      kind: Rule
+      services:
+        - name: prowlarr
+          port: 9696

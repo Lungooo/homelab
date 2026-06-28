@@ -8,3 +8,14 @@ data:
   PUID: "1028"
   PGID: "100"
   TZ: "Europe/Berlin"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prowlarr-config
+data:
+  PROWLARR__AUTH__METHOD: "External"
+  PROWLARR__POSTGRES__HOST: "psql-cluster-arr-rw.prod"
+  PROWLARR__POSTGRES__USER: "prowlarr"
+  PROWLARR__POSTGRES__MAINDB: "prowlarr"
+  PROWLARR__POSTGRES__LOGDB: "prowlarr-log"

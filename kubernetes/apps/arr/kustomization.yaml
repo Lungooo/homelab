@@ -7,12 +7,17 @@ images:
     newTag: 5.0.4-ls260@sha256:3df6abbd61d82710f91997b66178405862939a4009e8db212fa4f0a7a65f2047
   - name: public.ecr.aws/docker/library/busybox
     newTag: 1.38.0@sha256:1cfa4e2b09e127b9c4ed43578d3f3c18e7d44ea47b9ea98475c0cbe9086525f8
+  - name: ghcr.io/linuxserver/prowlarr
+    newTag: 2.4.0.5397-ls151@sha256:3950b5e48cf4ba9dab78fe14038dd7f062e66b7b4ab368b02c94a13f6a3dae9f
 
 resources:
   - configmaps.yaml
+  - databases.yaml
+  - deployment-prowlarr.yaml
   - deployment-sabnzbd.yaml
   - ingress.yaml
   - nfs-volumes.yaml
   - pvcs.yaml
+  - secrets.yaml
   - serviceaccount.yaml
   - services.yaml
