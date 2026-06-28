@@ -5,3 +5,7 @@ kind: Kustomization
 resources:
   - https://raw.githubusercontent.com/k8snetworkplumbingwg/multus-cni/master/deployments/multus-daemonset-thick.yml
   - NetworkAttachmentDefinition.yaml
+
+patches:
+  - path: kube-multus-ds-patch.yaml
+  - path: multus-daemon-config-patch.yaml

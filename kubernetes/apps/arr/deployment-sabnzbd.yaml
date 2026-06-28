@@ -28,11 +28,8 @@ spec:
       dnsConfig:
         nameservers:
           - "84.200.69.80"
-          - "37.235.1.174"
+          - "9.9.9.9"
           - "1.1.1.1"
-          - "37.235.1.177"
-          - "84.200.70.40"
-          - "1.0.0.1"
       containers:
         - name: sabnzbd
           image: ghcr.io/linuxserver/sabnzbd
