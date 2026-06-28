@@ -1,0 +1,66 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sabnzbd
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sabnzbd
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: sabnzbd
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |
+          [{
+            "name": "kube-system/opnsense-vpn-vlan",
+            "ips": ["10.0.50.100"],
+            "default-route": ["10.0.50.1"]
+          }]
+    spec:
+      serviceAccountName: arr
+      automountServiceAccountToken: false
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - "84.200.69.80"
+          - "37.235.1.174"
+          - "1.1.1.1"
+          - "37.235.1.177"
+          - "84.200.70.40"
+          - "1.0.0.1"
+      containers:
+        - name: sabnzbd
+          image: ghcr.io/linuxserver/sabnzbd
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: arr-config
+          resources:
+            limits:
+              memory: 1Gi
+            requests:
+              memory: 512Mi
+          volumeMounts:
+            - name: sabnzbd-config
+              mountPath: /config
+            - name: data-nfs
+              mountPath: /nfs/data/03_media/03_usenet
+              subPath: 03_media/03_usenet
+      volumes:
+        - name: sabnzbd-config
+          persistentVolumeClaim:
+            claimName: sabnzbd-config-pvc
+        - name: data-nfs
+          persistentVolumeClaim:
+            claimName: data-nfs-pvc
+      nodeSelector:
+        worker: "true"

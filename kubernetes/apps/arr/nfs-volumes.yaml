@@ -1,0 +1,31 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: arr-data-nfs-pv
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  claimRef:
+    name: data-nfs-pvc
+    namespace: arr
+  nfs:
+    server: 10.0.20.10
+    path: /volume1/data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-nfs-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ""
+  volumeName: arr-data-nfs-pv
+  resources:
+    requests:
+      storage: 100Gi

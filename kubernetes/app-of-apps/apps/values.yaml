@@ -1,6 +1,7 @@
 ---
 apps:
   - name: actual-budget
+  - name: arr
   - name: cloudnative-pg
     namespace: prod
   - name: cyberchef
