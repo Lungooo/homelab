@@ -59,22 +59,18 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Build Manifests
+      - name: Verify Manifests
         run: |
           if [ -f "${{ matrix.app }}/Chart.yaml" ]; then
             echo "Chart.yaml found. Running helm template..."
-            helm template validate ${{ matrix.app }} > ${{ matrix.app }}/bundle.yaml
+            helm template validate ${{ matrix.app }} | kubeconform -strict -summary
           elif [ -f "${{ matrix.app }}/kustomization.yaml" ] || [ -f "${{ matrix.app }}/kustomization.yml" ]; then
             echo "Kustomization found. Running kustomize build..."
-            kustomize build --enable-helm ${{ matrix.app }} > ${{ matrix.app }}/bundle.yaml
+            kustomize build --enable-helm ${{ matrix.app }} | kubeconform -strict -summary
           else
             echo "Neither Chart.yaml nor kustomization.yaml found in ${{ matrix.app }}. Skipping."
             touch ${{ matrix.app }}/bundle.yaml
           fi
-
-      - name: Dry-run kubectl apply
-        run: |
-          kubectl apply -f ${{ matrix.app }}/bundle.yaml --dry-run=client
 
   validation-result:
     runs-on: arc-runner-set
