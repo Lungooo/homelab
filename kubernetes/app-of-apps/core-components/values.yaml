@@ -11,6 +11,8 @@ core_components:
     namespace: longhorn-system
   - name: metallb
     namespace: metallb-system
+  - name: multus-cni
+    namespace: kube-system
   # - name: reflector
   - name: reloader
   - name: traefik
