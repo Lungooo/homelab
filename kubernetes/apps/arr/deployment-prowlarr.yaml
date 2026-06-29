@@ -1,0 +1,90 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prowlarr
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: prowlarr
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: prowlarr
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |
+          [{
+            "name": "opnsense-vpn-vlan",
+            "namespace": "kube-system",
+            "ips": ["10.0.50.101/24"],
+            "default-route": ["10.0.50.1"]
+          }]
+    spec:
+      serviceAccountName: arr
+      automountServiceAccountToken: false
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - "84.200.69.80"
+          - "9.9.9.9"
+          - "1.1.1.1"
+      hostAliases:
+        - ip: 10.43.255.200
+          hostnames:
+            - "psql-cluster-arr-rw.prod"
+      initContainers:
+        - name: configure-default-route
+          image: public.ecr.aws/docker/library/busybox
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+          command:
+            - "/bin/sh"
+            - "-c"
+            - |
+              echo "Getting ip address of default gateway"
+              ETH0_GW=$(ip route show default dev eth0 | grep "default" | awk '{print $3}')
+              echo "ip address of default gateway: $ETH0_GW"
+
+              echo "Adding route for kubernetes services"
+              ip route add 10.43.0.0/16 via $ETH0_GW dev eth0
+              echo "10.43.0.0/16 -> $ETH0_GW applied successfuly"
+
+              echo "Replacing default route with 10.0.50.1"
+              ip route replace default via 10.0.50.1 dev net1
+              echo "0.0.0.0/0 -> 10.0.50.1 applied successfuly"
+      containers:
+        - name: prowlarr
+          image: ghcr.io/linuxserver/prowlarr
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 9696
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: arr-config
+            - configMapRef:
+                name: prowlarr-config
+            - secretRef:
+                name: prowlarr-secret
+          resources:
+            limits:
+              memory: 1Gi
+            requests:
+              memory: 512Mi
+          volumeMounts:
+            - name: prowlarr-config
+              mountPath: /config
+
+      volumes:
+        - name: prowlarr-config
+          persistentVolumeClaim:
+            claimName: prowlarr-config-pvc
+      nodeSelector:
+        worker: "true"

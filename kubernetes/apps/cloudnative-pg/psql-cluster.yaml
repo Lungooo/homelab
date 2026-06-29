@@ -50,6 +50,22 @@ spec:
     storageClass: longhorn-cnpg-replica-storage
     size: 50Gi
 
+  managed:
+    services:
+      additional:
+        - selectorType: rw
+          serviceTemplate:
+            metadata:
+              name: psql-cluster-arr-rw
+            spec:
+              type: ClusterIP
+              clusterIP: 10.43.255.200
+              ports:
+                - name: postgres
+                  port: 5432
+                  protocol: TCP
+                  targetPort: 5432
+
   affinity:
     enablePodAntiAffinity: true
     topologyKey: kubernetes.io/hostname

@@ -1,0 +1,29 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+images:
+  - name: ghcr.io/linuxserver/sabnzbd
+    newTag: 5.0.4-ls260@sha256:3df6abbd61d82710f91997b66178405862939a4009e8db212fa4f0a7a65f2047
+  - name: public.ecr.aws/docker/library/busybox
+    newTag: 1.38.0@sha256:1cfa4e2b09e127b9c4ed43578d3f3c18e7d44ea47b9ea98475c0cbe9086525f8
+  - name: ghcr.io/linuxserver/prowlarr
+    newTag: 2.4.0.5397-ls151@sha256:3950b5e48cf4ba9dab78fe14038dd7f062e66b7b4ab368b02c94a13f6a3dae9f
+  - name: ghcr.io/linuxserver/radarr
+    newTag: 6.2.1.10461-ls308@sha256:39da107b5a9371fdaa651bd188049b863716a815385eb3a30d41071b7e1aeb33
+  - name: ghcr.io/linuxserver/sonarr
+    newTag: 4.0.19.2979-ls316@sha256:fbb15bb4fb14d1ffe017f6be0e3fed8f1b300e4687e329767da0b61f36ba1eed
+
+resources:
+  - configmaps.yaml
+  - databases.yaml
+  - deployment-prowlarr.yaml
+  - deployment-radarr.yaml
+  - deployment-sabnzbd.yaml
+  - deployment-sonarr.yaml
+  - ingress.yaml
+  - nfs-volumes.yaml
+  - pvcs.yaml
+  - secrets.yaml
+  - serviceaccount.yaml
+  - services.yaml

@@ -1,0 +1,33 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: psql-cluster-prowlarr
+  namespace: prod
+spec:
+  name: prowlarr
+  owner: prowlarr
+  cluster:
+    name: psql-cluster
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: psql-cluster-radarr
+  namespace: prod
+spec:
+  name: radarr
+  owner: radarr
+  cluster:
+    name: psql-cluster
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: psql-cluster-sonarr
+  namespace: prod
+spec:
+  name: sonarr
+  owner: sonarr
+  cluster:
+    name: psql-cluster
