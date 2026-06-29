@@ -28,3 +28,18 @@ spec:
       services:
         - name: prowlarr
           port: 9696
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: radarr-ingress
+spec:
+  entryPoints:
+    - websecure
+  ingressClassName: traefik-external
+  routes:
+    - match: Host(`radarr.home.lungoo.de`)
+      kind: Rule
+      services:
+        - name: radarr
+          port: 7878

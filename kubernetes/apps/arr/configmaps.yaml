@@ -18,4 +18,15 @@ data:
   PROWLARR__POSTGRES__HOST: "psql-cluster-arr-rw.prod"
   PROWLARR__POSTGRES__USER: "prowlarr"
   PROWLARR__POSTGRES__MAINDB: "prowlarr"
-  PROWLARR__POSTGRES__LOGDB: "prowlarr-log"
+  PROWLARR__LOG__DBENABLED: "false"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: radarr-config
+data:
+  RADARR__AUTH__METHOD: "External"
+  RADARR__POSTGRES__HOST: "psql-cluster-arr-rw.prod"
+  RADARR__POSTGRES__USER: "radarr"
+  RADARR__POSTGRES__MAINDB: "radarr"
+  RADARR__LOG__DBENABLED: "false"

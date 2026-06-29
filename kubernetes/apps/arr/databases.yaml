@@ -2,7 +2,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: psql-cluster-prowlarr-main
+  name: psql-cluster-prowlarr
   namespace: prod
 spec:
   name: prowlarr
@@ -13,10 +13,10 @@ spec:
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: psql-cluster-prowlarr-log
+  name: psql-cluster-radarr
   namespace: prod
 spec:
-  name: prowlarr-log
-  owner: prowlarr
+  name: radarr
+  owner: radarr
   cluster:
     name: psql-cluster

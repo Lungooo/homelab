@@ -9,11 +9,14 @@ images:
     newTag: 1.38.0@sha256:1cfa4e2b09e127b9c4ed43578d3f3c18e7d44ea47b9ea98475c0cbe9086525f8
   - name: ghcr.io/linuxserver/prowlarr
     newTag: 2.4.0.5397-ls151@sha256:3950b5e48cf4ba9dab78fe14038dd7f062e66b7b4ab368b02c94a13f6a3dae9f
+  - name: ghcr.io/linuxserver/radarr
+    newTag: 6.2.1.10461-ls308@sha256:39da107b5a9371fdaa651bd188049b863716a815385eb3a30d41071b7e1aeb33
 
 resources:
   - configmaps.yaml
   - databases.yaml
   - deployment-prowlarr.yaml
+  - deployment-radarr.yaml
   - deployment-sabnzbd.yaml
   - ingress.yaml
   - nfs-volumes.yaml
