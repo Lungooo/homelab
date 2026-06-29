@@ -5,3 +5,5 @@ forgejo_package_type: linux-amd64
 forgejo_lfs_jwt_secret: REPLACE_ME_LFS_JWT_SECRET
 forgejo_jwt_secret: REPLACE_ME_JWT_SECRET
 forgejo_internal_token: REPLACE_ME_INTERNAL_TOKEN
+forgejo_use_https: true
+forgejo_domain: forgejo.example.com

@@ -20,10 +20,10 @@ SQLITE_JOURNAL_MODE = WAL
 ROOT = /var/lib/forgejo/data/forgejo-repositories
 
 [server]
-SSH_DOMAIN = {{ ansible_facts["default_ipv4"].address }}
-DOMAIN = {{ ansible_facts["default_ipv4"].address }}
+SSH_DOMAIN = {{ forgejo_ssh_domain | default(forgejo_domain) }}
+DOMAIN = {{ forgejo_domain }}
 HTTP_PORT = 3000
-ROOT_URL = http://{{ ansible_facts["default_ipv4"].address }}:3000/
+ROOT_URL = {% if forgejo_use_https %}https://{{ forgejo_domain }}{% else %}http://{{ forgejo_domain }}:3000{% endif %}/
 APP_DATA_PATH = /var/lib/forgejo/data
 DISABLE_SSH = false
 SSH_PORT = 22

@@ -9,3 +9,6 @@ kubernetes/*/*/charts/
 
 # build directory
 build/
+
+# ansible host_vars
+host_vars/
