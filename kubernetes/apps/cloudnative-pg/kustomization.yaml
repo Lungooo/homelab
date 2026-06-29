@@ -18,6 +18,7 @@ helmCharts:
 
 resources:
   - namespace.yaml
+  - catalog-standard-trixie.yaml
   - cnpg-storageclass.yaml
   - psql-cluster.yaml
   - ingress.yaml

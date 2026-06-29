@@ -1,0 +1,37 @@
+name: Vendor CloudNativePG Catalog
+
+on:
+  schedule:
+    - cron: "0 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-catalog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
+      - name: Download Latest Catalog File
+        run: |
+          curl -sSL \
+            -H "Cache-Control: no-cache, no-store, must-revalidate" \
+            -H "Pragma: no-cache" \
+            -o kubernetes/apps/cloudnative-pg/catalog-standard-trixie.yaml \
+            https://raw.githubusercontent.com/cloudnative-pg/artifacts/refs/heads/main/image-catalogs/catalog-standard-trixie.yaml
+
+      - name: Check for Changes and Open Pull Request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          commit-message: "chore(deps): update cloudnative-pg trixie catalog"
+          committer: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          branch: "automation/update-pg-catalog"
+          delete-branch: true
+          title: "chore(deps): upstream cloudnative-pg trixie catalog updated"
+          body: |
+            The upstream CloudNativePG catalog file has changed.
