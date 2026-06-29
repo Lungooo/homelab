@@ -1,0 +1,42 @@
+---
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+metadata:
+  name: forgejo-service
+  labels:
+    kubernetes.io/service-name: forgejo-service
+addressType: IPv4
+endpoints:
+  - addresses:
+      - 10.0.10.101
+ports:
+  - name: http
+    port: 3000
+    protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: forgejo-service
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: forgejo-ingress
+spec:
+  entryPoints:
+    - websecure
+  ingressClassName: traefik-external
+  routes:
+    - match: Host(`forgejo.home.lungoo.de`)
+      kind: Rule
+      services:
+        - name: forgejo-service
+          port: 3000

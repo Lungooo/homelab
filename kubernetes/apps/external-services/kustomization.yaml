@@ -4,4 +4,10 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
-  - garage-ingress.yaml
+  - adguardhome.yaml
+  - forgejo.yaml
+  - garage.yaml
+  - home-assistant.yaml
+  - pbs.yaml
+  - pve.yaml
+  - synology.yaml

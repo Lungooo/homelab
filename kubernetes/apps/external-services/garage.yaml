@@ -1,0 +1,84 @@
+---
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+metadata:
+  name: garage-webui-service
+  labels:
+    kubernetes.io/service-name: garage-webui-service
+addressType: IPv4
+endpoints:
+  - addresses:
+      - 10.0.20.10
+ports:
+  - name: http
+    port: 3909
+    protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: garage-webui-service
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 3909
+      protocol: TCP
+      targetPort: 3909
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: garage-webui-ingress
+spec:
+  entryPoints:
+    - websecure
+  ingressClassName: traefik-external
+  routes:
+    - match: Host(`garage.home.lungoo.de`)
+      kind: Rule
+      services:
+        - name: garage-webui-service
+          port: 3909
+---
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+metadata:
+  name: garage-s3-service
+  labels:
+    kubernetes.io/service-name: garage-s3-service
+addressType: IPv4
+endpoints:
+  - addresses:
+      - 10.0.20.10
+ports:
+  - name: http
+    port: 3900
+    protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: garage-s3-service
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 3900
+      protocol: TCP
+      targetPort: 3900
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: garage-s3-ingress
+spec:
+  entryPoints:
+    - websecure
+  ingressClassName: traefik-external
+  routes:
+    - match: Host(`s3.home.lungoo.de`)
+      kind: Rule
+      services:
+        - name: garage-s3-service
+          port: 3900

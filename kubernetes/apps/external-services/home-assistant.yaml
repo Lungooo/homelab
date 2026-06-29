@@ -2,89 +2,83 @@
 apiVersion: discovery.k8s.io/v1
 kind: EndpointSlice
 metadata:
-  name: garage-webui-service
-  namespace: external-services
+  name: home-assistant-service
   labels:
-    kubernetes.io/service-name: garage-webui-service
+    kubernetes.io/service-name: home-assistant-service
 addressType: IPv4
 endpoints:
   - addresses:
-      - 10.0.20.10
+      - 10.0.10.20
 ports:
   - name: http
-    port: 3909
+    port: 8123
     protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: garage-webui-service
-  namespace: external-services
+  name: home-assistant-service
 spec:
   type: ClusterIP
   ports:
     - name: http
-      port: 3909
+      port: 8123
       protocol: TCP
-      targetPort: 3909
+      targetPort: 8123
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: garage-webui-ingress
-  namespace: external-services
+  name: home-assistant-ingress
 spec:
   entryPoints:
     - websecure
   ingressClassName: traefik-external
   routes:
-    - match: Host(`garage.home.lungoo.de`)
+    - match: Host(`home-assistant.home.lungoo.de`)
       kind: Rule
       services:
-        - name: garage-webui-service
-          port: 3909
+        - name: home-assistant-service
+          port: 8123
 ---
 apiVersion: discovery.k8s.io/v1
 kind: EndpointSlice
 metadata:
-  name: garage-s3-service
-  namespace: external-services
+  name: music-assistant-service
   labels:
-    kubernetes.io/service-name: garage-s3-service
+    kubernetes.io/service-name: music-assistant-service
 addressType: IPv4
 endpoints:
   - addresses:
-      - 10.0.20.10
+      - 10.0.10.20
 ports:
   - name: http
-    port: 3900
+    port: 8095
     protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: garage-s3-service
-  namespace: external-services
+  name: music-assistant-service
 spec:
   type: ClusterIP
   ports:
     - name: http
-      port: 3900
+      port: 8095
       protocol: TCP
-      targetPort: 3900
+      targetPort: 8095
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: garage-s3-ingress
-  namespace: external-services
+  name: music-assistant-ingress
 spec:
   entryPoints:
     - websecure
   ingressClassName: traefik-external
   routes:
-    - match: Host(`s3.home.lungoo.de`)
+    - match: Host(`music-assistant.home.lungoo.de`)
       kind: Rule
       services:
-        - name: garage-s3-service
-          port: 3900
+        - name: music-assistant-service
+          port: 8095

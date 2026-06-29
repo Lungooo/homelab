@@ -1,0 +1,58 @@
+---
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+metadata:
+  name: pve-service
+  labels:
+    kubernetes.io/service-name: pve-service
+addressType: IPv4
+endpoints:
+  - addresses:
+      - 10.0.10.21
+  - addresses:
+      - 10.0.10.22
+ports:
+  - name: https
+    port: 8006
+    protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pve-service
+spec:
+  type: ClusterIP
+  ports:
+    - name: https
+      port: 8006
+      protocol: TCP
+      targetPort: 8006
+---
+apiVersion: traefik.io/v1alpha1
+kind: ServersTransport
+metadata:
+  name: pve-transport
+spec:
+  insecureSkipVerify: true
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: pve-ingress
+spec:
+  entryPoints:
+    - websecure
+  ingressClassName: traefik-external
+  routes:
+    - match: Host(`pve.home.lungoo.de`)
+      kind: Rule
+      services:
+        - name: pve-service
+          port: 8006
+          scheme: https
+          serversTransport: pve-transport
+          sticky:
+            cookie:
+              name: pve-lb-cookie
+              secure: true
+              httpOnly: true
