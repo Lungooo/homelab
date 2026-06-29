@@ -43,3 +43,18 @@ spec:
       services:
         - name: radarr
           port: 7878
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: sonarr-ingress
+spec:
+  entryPoints:
+    - websecure
+  ingressClassName: traefik-external
+  routes:
+    - match: Host(`sonarr.home.lungoo.de`)
+      kind: Rule
+      services:
+        - name: sonarr
+          port: 8989

@@ -20,3 +20,14 @@ spec:
   owner: radarr
   cluster:
     name: psql-cluster
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: psql-cluster-sonarr
+  namespace: prod
+spec:
+  name: sonarr
+  owner: sonarr
+  cluster:
+    name: psql-cluster

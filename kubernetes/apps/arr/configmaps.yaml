@@ -30,3 +30,14 @@ data:
   RADARR__POSTGRES__USER: "radarr"
   RADARR__POSTGRES__MAINDB: "radarr"
   RADARR__LOG__DBENABLED: "false"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sonarr-config
+data:
+  SONARR__AUTH__METHOD: "External"
+  SONARR__POSTGRES__HOST: "psql-cluster-arr-rw.prod"
+  SONARR__POSTGRES__USER: "sonarr"
+  SONARR__POSTGRES__MAINDB: "sonarr"
+  SONARR__LOG__DBENABLED: "false"
