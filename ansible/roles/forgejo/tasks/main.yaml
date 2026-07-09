@@ -40,7 +40,7 @@
   loop:
     - /var/lib/forgejo
     - /var/lib/forgejo/data
-    - /var/lib/foregjo/log
+    - /var/lib/forgejo/log
 
 - name: Create Forgejo config directory
   ansible.builtin.file:
