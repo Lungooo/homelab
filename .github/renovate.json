@@ -6,6 +6,7 @@
     ":semanticCommits"
   ],
   "enabledManagers": [
+    "docker-compose",
     "github-actions",
     "helm-values",
     "helmv3",
