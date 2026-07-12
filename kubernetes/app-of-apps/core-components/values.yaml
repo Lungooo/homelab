@@ -15,4 +15,7 @@ core_components:
     namespace: kube-system
   # - name: reflector
   - name: reloader
-  - name: traefik
+  - name: traefik/internal
+    namespace: traefik-internal
+  - name: traefik/external
+    namespace: traefik-external

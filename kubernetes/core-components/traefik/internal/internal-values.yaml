@@ -2,10 +2,6 @@
 deployment:
   enabled: true
   replicas: 3
-  annotations: {}
-  podAnnotations: {}
-  additionalContainers: []
-  initContainers: []
 
 ingressRoute:
   dashboard:
@@ -16,16 +12,17 @@ ingressRoute:
     tls:
       secretName: home-lungoo-de-tls
 
+api:
+  dashboard: true
+  disableDashboardAd: true
+
 providers:
   kubernetesCRD:
     enabled: true
-    ingressClass: traefik-external
+    ingressClass: traefik-internal
     allowExternalNameServices: true
   kubernetesIngress:
-    enabled: true
-    allowExternalNameServices: true
-    publishedService:
-      enabled: false
+    enabled: false
 
 log:
   level: "INFO"
@@ -35,7 +32,6 @@ global:
   sendAnonymousUsage: false
 
 additionalArguments:
-  - "--api.disabledashboardad"
   - "--entrypoints.pg.address=:5432/tcp"
 
 ports:
@@ -51,7 +47,7 @@ ports:
       tls:
         enabled: true
       middlewares:
-        - traefik-securityheaders@kubernetescrd
+        - traefik-internal-securityheaders@kubernetescrd
     transport:
       respondingTimeouts:
         readTimeout: 300s
@@ -65,14 +61,15 @@ ports:
 
 service:
   enabled: true
-  type: LoadBalancer
-  annotations: {}
-  labels: {}
+  annotations:
+    metallb.io/loadBalancerIPs: 10.0.10.180,fd87:5445:bcc6:10::b4
   spec:
-    loadBalancerIP: 10.0.10.180
+    type: LoadBalancer
     externalTrafficPolicy: Local
-  loadBalancerSourceRangers: []
-  externalIPs: []
+    ipFamilies:
+      - IPv6
+      - IPv4
+    ipFamilyPolicy: PreferDualStack
 
 rbac:
   enabled: true

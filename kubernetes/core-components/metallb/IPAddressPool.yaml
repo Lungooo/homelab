@@ -8,3 +8,13 @@ spec:
   addresses:
     - 10.0.10.180-10.0.10.199
     - fd87:5445:bcc6:10::b4-fd87:5445:bcc6:10::c7
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: external-traefik-pool
+  namespace: metallb-system
+spec:
+  addresses:
+    - 10.0.255.80/32
+    - fd87:5445:bcc6:255::80/128

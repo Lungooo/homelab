@@ -3,13 +3,26 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: home-lungoo-de
-  namespace: traefik
+  namespace: traefik-internal
 spec:
   secretName: home-lungoo-de-tls
   issuerRef:
     name: zerossl-production
     kind: ClusterIssuer
-  commonName: "*.home.lungoo.de"
   dnsNames:
     - "home.lungoo.de"
     - "*.home.lungoo.de"
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: lungoo-dev
+  namespace: traefik-external
+spec:
+  secretName: lungoo-dev-tls
+  issuerRef:
+    name: zerossl-production
+    kind: ClusterIssuer
+  dnsNames:
+    - "lungoo.dev"
+    - "*.lungoo.dev"

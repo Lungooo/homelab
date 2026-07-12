@@ -33,7 +33,7 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  ingressClassName: traefik-external
+  ingressClassName: traefik-internal
   routes:
     - match: Host(`garage.home.lungoo.de`)
       kind: Rule
@@ -75,7 +75,7 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  ingressClassName: traefik-external
+  ingressClassName: traefik-internal
   routes:
     - match: Host(`s3.home.lungoo.de`)
       kind: Rule

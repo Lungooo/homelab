@@ -6,7 +6,7 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  ingressClassName: traefik-external
+  ingressClassName: traefik-internal
   routes:
     - match: Host(`sabnzbd.home.lungoo.de`)
       kind: Rule
@@ -21,7 +21,7 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  ingressClassName: traefik-external
+  ingressClassName: traefik-internal
   routes:
     - match: Host(`prowlarr.home.lungoo.de`)
       kind: Rule
@@ -36,7 +36,7 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  ingressClassName: traefik-external
+  ingressClassName: traefik-internal
   routes:
     - match: Host(`radarr.home.lungoo.de`)
       kind: Rule
@@ -51,7 +51,7 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  ingressClassName: traefik-external
+  ingressClassName: traefik-internal
   routes:
     - match: Host(`sonarr.home.lungoo.de`)
       kind: Rule
