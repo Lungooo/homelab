@@ -4,5 +4,6 @@ kind: Kustomization
 
 resources:
   - IPAddressPool.yaml
-  - L2Advertisement.yaml
-  - github.com/metallb/metallb/config/native?ref=v0.16.1
+  - BGPPeer.yaml
+  - BGPAdvertisement.yaml
+  - github.com/metallb/metallb/config/frr-k8s?ref=v0.16.1
