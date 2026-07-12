@@ -7,3 +7,4 @@ metadata:
 spec:
   addresses:
     - 10.0.10.180-10.0.10.199
+    - fd87:5445:bcc6:10::b4-fd87:5445:bcc6:10::c7

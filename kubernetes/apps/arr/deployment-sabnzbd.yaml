@@ -36,13 +36,15 @@ spec:
           image: public.ecr.aws/docker/library/busybox
           imagePullPolicy: IfNotPresent
           securityContext:
-            capabilities:
-              add:
-                - NET_ADMIN
+            privileged: true
           command:
             - "/bin/sh"
             - "-c"
             - |
+              echo "Disabling IPv6 for Pod"
+
+              sysctl -w net.ipv6.conf.all.disable_ipv6=1
+
               echo "Getting ip address of default gateway"
               ETH0_GW=$(ip route show default dev eth0 | grep "default" | awk '{print $3}')
               echo "ip address of default gateway: $ETH0_GW"
