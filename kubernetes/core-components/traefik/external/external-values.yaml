@@ -10,7 +10,7 @@ ingressRoute:
     entryPoints:
       - websecure
     middlewares:
-      - traefik-external-dashboard-ipallowlist@kubernetescrd
+      - name: dashboard-ipallowlist
     tls:
       secretName: lungoo-dev-tls
 
@@ -50,7 +50,7 @@ ports:
       tls:
         enabled: true
       middlewares:
-        - traefik-external-securityheaders@kubernetescrd
+        - name: securityheaders
     proxyProtocol:
       trustedIPs:
         - 100.69.100.2/32

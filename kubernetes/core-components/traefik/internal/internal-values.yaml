@@ -47,7 +47,7 @@ ports:
       tls:
         enabled: true
       middlewares:
-        - traefik-internal-securityheaders@kubernetescrd
+        - name: securityheaders
     transport:
       respondingTimeouts:
         readTimeout: 300s
