@@ -8,7 +8,7 @@ images:
   - name: public.ecr.aws/docker/library/busybox
     newTag: 1.38.0@sha256:1cfa4e2b09e127b9c4ed43578d3f3c18e7d44ea47b9ea98475c0cbe9086525f8
   - name: ghcr.io/linuxserver/prowlarr
-    newTag: 2.4.0.5397-ls154@sha256:4fd7a166c8f46dd3370a871c250ee577d6c2ae97a0dbe0e3614b5ef736205620
+    newTag: 2.5.2.5491-ls155@sha256:2f3d31307beba3ba2dd226d191f5f5c14ee3b4d8b49277c64683f5ed97083179
   - name: ghcr.io/linuxserver/radarr
     newTag: 6.3.0.10514-ls312@sha256:e35056574cdc695a9ee745aa1ecda9eab3842450bf4b7b8471b023790fa3861d
   - name: ghcr.io/linuxserver/sonarr
