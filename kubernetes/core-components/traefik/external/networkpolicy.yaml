@@ -20,6 +20,12 @@ spec:
           port: 53
 
     - to:
-        - podSelector:
+        - namespaceSelector:
+            matchExpressions:
+              - key: kubernetes.io/metadata.name
+                operator: In
+                values:
+                  - crowdsec
+          podSelector:
             matchLabels:
               network/allow-external: "true"

@@ -36,6 +36,8 @@ appsec:
     # AppSec-specific rule sets (virtual patching + generic protections)
     - name: COLLECTIONS
       value: crowdsecurity/appsec-virtual-patching crowdsecurity/appsec-crs crowdsecurity/appsec-generic-rules
+  podLabels:
+    network/allow-external: "true"
 lapi:
   env:
     # To enroll the Security Engine to the console
@@ -63,6 +65,8 @@ lapi:
       enabled: false
     config:
       enabled: false
+  podLabels:
+    network/allow-external: "true"
 ## config.yaml.local is the configuration file used by the Security Engine itself
 config:
   config.yaml.local: |
