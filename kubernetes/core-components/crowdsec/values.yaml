@@ -1,6 +1,11 @@
 ---
 # for raw logs format: json or cri (docker|containerd)
 container_runtime: containerd
+secrets:
+  externalSecret:
+    name: "crowdsec-secret"
+    csLapiSecretKey: "CS_LAPI_SECRET"
+    registrationTokenKey: "REGISTRATION_TOKEN"
 agent:
   # Specify each pod whose logs you want to process
   acquisition:
