@@ -1,0 +1,15 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: lldap-ingress
+spec:
+  entryPoints:
+    - websecure
+  ingressClassName: traefik-external
+  routes:
+    - match: Host(`lldap.lungoo.dev`)
+      kind: Rule
+      services:
+        - name: lldap
+          port: 17170
