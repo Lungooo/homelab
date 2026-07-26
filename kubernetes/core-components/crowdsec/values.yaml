@@ -91,6 +91,7 @@ config:
       password: ${DB_PASSWORD}
       db_name: crowdsec
       host: psql-cluster-rw.prod
+      port: 5432
       flush:
         bouncers_autodelete:
           api_key: 1h
