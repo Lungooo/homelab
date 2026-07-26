@@ -2,6 +2,7 @@
 core_components:
   - name: argocd
   - name: cert-manager
+  - name: crowdsec
   - name: external-secrets
   - name: github-arc-controller
     namespace: arc-system

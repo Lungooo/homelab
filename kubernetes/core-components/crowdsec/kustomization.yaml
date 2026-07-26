@@ -12,5 +12,6 @@ helmCharts:
     version: 0.24.0
 
 resources:
+  - database.yaml
   - secrets.yaml
   - middleware.yaml
