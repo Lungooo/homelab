@@ -26,6 +26,7 @@ spec:
                 operator: In
                 values:
                   - crowdsec
+                  - lldap
           podSelector:
             matchLabels:
               network/allow-external: "true"
