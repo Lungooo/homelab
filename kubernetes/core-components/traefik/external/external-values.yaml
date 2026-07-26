@@ -2,6 +2,9 @@
 deployment:
   enabled: true
   replicas: 3
+  additionalVolumes:
+    - name: plugins-storage
+      emptyDir: {}
 
 ingressRoute:
   dashboard:
@@ -29,9 +32,30 @@ providers:
 log:
   level: "INFO"
 
+accessLog:
+  enabled: true
+  format: "json"
+
 global:
   checkNewVersion: false
   sendAnonymousUsage: false
+
+experimental:
+  plugins:
+    bouncer:
+      moduleName: github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin
+      # renovate: datasource=github-releases depName=maxlerebourg/crowdsec-bouncer-traefik-plugin
+      version: v1.6.0
+
+volumes:
+  - name: crowdsec-bouncer-key
+    mountPath: /etc/traefik/crowdsec
+    type: secret
+    secretName: crowdsec-bouncer-key
+
+additionalVolumeMounts:
+  - name: plugins-storage
+    mountPath: /plugins-storage
 
 ports:
   web:
@@ -51,6 +75,7 @@ ports:
         enabled: true
       middlewares:
         - traefik-external-securityheaders
+        - traefik-external-crowdsec
     proxyProtocol:
       trustedIPs:
         - 100.69.100.2/32
@@ -67,6 +92,11 @@ service:
       - IPv6
       - IPv4
     ipFamilyPolicy: PreferDualStack
+
+podSecurityContext:
+  sysctls:
+    - name: net.ipv4.ping_group_range
+      value: "1 0"
 
 rbac:
   enabled: true

@@ -1,0 +1,99 @@
+---
+# for raw logs format: json or cri (docker|containerd)
+container_runtime: containerd
+agent:
+  # Specify each pod whose logs you want to process
+  acquisition:
+    # The namespace where the pod is located
+    - namespace: traefik-external
+      # The pod name
+      podName: traefik-external-*
+      # as in crowdsec configuration, we need to specify the program name to find a matching parser
+      program: traefik
+  env:
+    - name: COLLECTIONS
+      value: "crowdsecurity/traefik"
+appsec:
+  # Enables CrowdSec AppSec (WAF component)
+  enabled: true
+
+  acquisitions:
+    # Defines how AppSec receives HTTP security events
+    - appsec_configs:
+        - crowdsecurity/appsec-default # Default AppSec engine configuration
+        - crowdsecurity/crs
+      labels:
+        type: appsec # Label used internally to identify AppSec events
+      listen_addr: 0.0.0.0:7422 # Address/port where AppSec listens for events
+      path: / # URL path to inspect
+      source: appsec # Marks events as coming from AppSec
+  env:
+    # AppSec-specific rule sets (virtual patching + generic protections)
+    - name: COLLECTIONS
+      value: crowdsecurity/appsec-virtual-patching crowdsecurity/appsec-crs crowdsecurity/appsec-generic-rules
+lapi:
+  env:
+    # To enroll the Security Engine to the console
+    - name: ENROLL_KEY
+      valueFrom:
+        secretKeyRef:
+          name: crowdsec-secret
+          key: ENROLL_KEY
+    - name: ENROLL_INSTANCE_NAME
+      value: "k3s-homelab"
+    - name: ENROLL_TAGS
+      value: "k3s"
+    - name: BOUNCER_KEY_traefik
+      valueFrom:
+        secretKeyRef:
+          name: crowdsec-secret
+          key: BOUNCER_KEY_traefik
+    - name: DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: crowdsec-secret
+          key: DB_PASSWORD
+  persistentVolume:
+    data:
+      enabled: false
+    config:
+      enabled: false
+## config.yaml.local is the configuration file used by the Security Engine itself
+config:
+  config.yaml.local: |
+    api:
+      client:
+        # the log processor will remove delete itself from LAPI when stopping.    
+        unregister_on_exit: true
+      server:
+        # This is needed for agent autoregistration
+        auto_registration: # Activate if not using TLS for authentication
+          enabled: true
+          token: "${REGISTRATION_TOKEN}" # /!\ Do not modify this variable (auto-generated and handled by the chart)
+          allowed_ranges:
+            # IPv4 Private Ranges
+            - "127.0.0.1/32"
+            - "10.42.0.0/16"       # K3s Pod CIDR
+            - "10.43.0.0/16"       # K3s Service CIDR
+            - "10.0.0.0/8"
+            - "192.168.0.0/16"
+            - "172.16.0.0/12"
+
+            # IPv6 Ranges
+            - "::1/128"            # IPv6 Loopback
+            - "fd00::/8"           # Unique Local Addresses (ULA) - used by default Pod/Service CIDRs in dual-stack
+            - "fe80::/10"          # Link-Local Addresses (pod-to-pod communication on the same node)
+            - "::ffff:0:0/96"      # IPv4-mapped IPv6 addresses
+    # Using a database is strongly encouraged.
+    db_config:
+      type: postgresql
+      user: crowdsec
+      password: ${DB_PASSWORD}
+      db_name: crowdsec
+      host: psql-cluster-rw.prod
+      flush:
+        bouncers_autodelete:
+          api_key: 1h
+        agents_autodelete:
+          login_password: 6h
+          cert: 6h

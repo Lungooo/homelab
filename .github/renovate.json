@@ -14,15 +14,15 @@
     "custom.regex"
   ],
   "customManagers": [
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/.*y[a]?ml$/"
-      ],
-      "matchStrings": [
-        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?( registryUrl=(?<registryUrl>.*?))?\\s.*?version: (?<currentValue>.*)\\s"
-      ],
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
-    }
-  ]
+  {
+    "customType": "regex",
+    "managerFilePatterns": [
+      "/.*y[a]?ml$/"
+    ],
+    "matchStrings": [
+      "#\\s*renovate:\\s*datasource=(?<datasource>.*?)\\s+depName=(?<depName>.*?)(?:\\s+versioning=(?<versioning>.*?))?(?:\\s+registryUrl=(?<registryUrl>.*?))?\\s*\\n\\s*.*?version:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"
+    ],
+    "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+  }
+]
 }
