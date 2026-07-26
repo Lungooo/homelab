@@ -2,9 +2,6 @@
 deployment:
   enabled: true
   replicas: 3
-  additionalVolumes:
-    - name: plugins-storage
-      emptyDir: {}
 
 ingressRoute:
   dashboard:
@@ -52,10 +49,6 @@ volumes:
     mountPath: /etc/traefik/crowdsec
     type: secret
     secretName: crowdsec-bouncer-key
-
-additionalVolumeMounts:
-  - name: plugins-storage
-    mountPath: /plugins-storage
 
 ports:
   web:
