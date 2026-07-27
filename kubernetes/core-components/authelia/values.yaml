@@ -16,6 +16,7 @@ pod:
 configMap:
   log:
     format: "json"
+  theme: "auto"
   totp:
     issuer: "Authelia <lungoo.dev>"
   webauthn:
