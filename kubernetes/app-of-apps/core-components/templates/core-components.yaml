@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: http://10.0.10.101:3000/homelab/homelab.git
-    path: kubernetes/core-components/{{ .name }}
+    path: kubernetes/core-components/{{ .path | default .name }}
     targetRevision: HEAD
   destination:
     namespace: {{ .namespace | default .name }}

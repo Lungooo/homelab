@@ -6,10 +6,13 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  ingressClassName: traefik-external
+  ingressClassName: traefik-internal
   routes:
     - match: Host(`sabnzbd.home.lungoo.de`)
       kind: Rule
+      middlewares:
+        - name: forwardauth
+          namespace: authelia
       services:
         - name: sabnzbd
           port: 8080
@@ -21,10 +24,13 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  ingressClassName: traefik-external
+  ingressClassName: traefik-internal
   routes:
     - match: Host(`prowlarr.home.lungoo.de`)
       kind: Rule
+      middlewares:
+        - name: forwardauth
+          namespace: authelia
       services:
         - name: prowlarr
           port: 9696
@@ -36,10 +42,13 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  ingressClassName: traefik-external
+  ingressClassName: traefik-internal
   routes:
     - match: Host(`radarr.home.lungoo.de`)
       kind: Rule
+      middlewares:
+        - name: forwardauth
+          namespace: authelia
       services:
         - name: radarr
           port: 7878
@@ -51,10 +60,13 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  ingressClassName: traefik-external
+  ingressClassName: traefik-internal
   routes:
     - match: Host(`sonarr.home.lungoo.de`)
       kind: Rule
+      middlewares:
+        - name: forwardauth
+          namespace: authelia
       services:
         - name: sonarr
           port: 8989

@@ -33,7 +33,7 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  ingressClassName: traefik-external
+  ingressClassName: traefik-internal
   routes:
     - match: Host(`home-assistant.home.lungoo.de`)
       kind: Rule
@@ -75,7 +75,7 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  ingressClassName: traefik-external
+  ingressClassName: traefik-internal
   routes:
     - match: Host(`music-assistant.home.lungoo.de`)
       kind: Rule

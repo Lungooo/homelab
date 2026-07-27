@@ -1,0 +1,29 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+images:
+  - name: ghcr.io/valkey-io/valkey
+    newTag: 9.1.0@sha256:4963247afc4cd33c7d3b2d2816b9f7f8eeebab148d29056c2ca4d7cbc966f2d9
+
+helmCharts:
+  - namespace: authelia
+    name: authelia
+    releaseName: authelia
+    repo: https://charts.authelia.com
+    includeCRDs: true
+    valuesFile: values.yaml
+    version: 0.11.6
+
+resources:
+  - database.yaml
+  - deployment-valkey.yaml
+  - ingress.yaml
+  - middleware.yaml
+  - pvc.yaml
+  - secrets.yaml
+  - service.yaml
+  - serviceaccount.yaml
+
+patches:
+  - path: authelia-deploy-patch.yaml

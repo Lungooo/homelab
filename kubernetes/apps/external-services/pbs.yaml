@@ -40,7 +40,7 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  ingressClassName: traefik-external
+  ingressClassName: traefik-internal
   routes:
     - match: Host(`pbs.home.lungoo.de`)
       kind: Rule

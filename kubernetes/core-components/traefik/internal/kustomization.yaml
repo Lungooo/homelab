@@ -3,14 +3,14 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 helmCharts:
-  - namespace: traefik
+  - namespace: traefik-internal
     name: traefik
-    releaseName: traefik
+    releaseName: traefik-internal
     repo: https://helm.traefik.io/traefik
     includeCRDs: true
-    valuesFile: values.yaml
+    valuesFile: internal-values.yaml
     version: 41.0.2
 
 resources:
-  - middlewares.yaml
+  - ../base
   - tls-options.yaml

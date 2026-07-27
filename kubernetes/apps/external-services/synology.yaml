@@ -40,7 +40,7 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  ingressClassName: traefik-external
+  ingressClassName: traefik-internal
   routes:
     - match: Host(`synology.home.lungoo.de`)
       kind: Rule

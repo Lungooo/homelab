@@ -1,0 +1,100 @@
+---
+deployment:
+  enabled: true
+  replicas: 3
+
+ingressRoute:
+  dashboard:
+    enabled: true
+    matchRule: Host(`traefik.lungoo.dev`)
+    entryPoints:
+      - websecure
+    middlewares:
+      - name: forwardauth
+        namespace: authelia
+    tls:
+      secretName: lungoo-dev-tls
+
+api:
+  dashboard: true
+  disableDashboardAd: true
+
+providers:
+  kubernetesCRD:
+    enabled: true
+    ingressClass: traefik-external
+    allowExternalNameServices: true
+    allowCrossNamespace: true
+  kubernetesIngress:
+    enabled: false
+
+log:
+  level: "INFO"
+
+accessLog:
+  enabled: true
+  format: "json"
+
+global:
+  checkNewVersion: false
+  sendAnonymousUsage: false
+
+experimental:
+  plugins:
+    bouncer:
+      moduleName: github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin
+      # renovate: datasource=github-releases depName=maxlerebourg/crowdsec-bouncer-traefik-plugin
+      version: v1.6.0
+
+volumes:
+  - name: crowdsec-bouncer-key
+    mountPath: /etc/traefik/crowdsec
+    type: secret
+    secretName: crowdsec-bouncer-key
+
+ports:
+  web:
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+          priority: 10
+    proxyProtocol:
+      trustedIPs:
+        - 100.69.100.2/32
+        - fd7a:115c:a1e0::4a01:4779/128
+  websecure:
+    http:
+      tls:
+        enabled: true
+      middlewares:
+        - traefik-external-securityheaders
+        - crowdsec-bouncer
+    proxyProtocol:
+      trustedIPs:
+        - 100.69.100.2/32
+        - fd7a:115c:a1e0::4a01:4779/128
+
+service:
+  enabled: true
+  annotations:
+    metallb.io/loadBalancerIPs: 10.0.255.80,fd87:5445:bcc6:255::80
+  spec:
+    type: LoadBalancer
+    externalTrafficPolicy: Local
+    ipFamilies:
+      - IPv6
+      - IPv4
+    ipFamilyPolicy: PreferDualStack
+
+podSecurityContext:
+  sysctls:
+    - name: net.ipv4.ping_group_range
+      value: "1 0"
+
+rbac:
+  enabled: true
+
+nodeSelector:
+  node-role.kubernetes.io/control-plane: "true"

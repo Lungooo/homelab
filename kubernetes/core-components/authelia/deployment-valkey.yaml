@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authelia-valkey
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: authelia-valkey
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: authelia-valkey
+    spec:
+      serviceAccountName: authelia-valkey
+      automountServiceAccountToken: false
+      containers:
+        - name: valkey
+          image: ghcr.io/valkey-io/valkey
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: valkey
+              containerPort: 6379
+              protocol: TCP
+          resources:
+            limits:
+              memory: 256Mi
+            requests:
+              memory: 128Mi
+          volumeMounts:
+            - name: valkey-data
+              mountPath: /data
+      volumes:
+        - name: valkey-data
+          persistentVolumeClaim:
+            claimName: authelia-valkey-pvc
+      nodeSelector:
+        worker: "true"

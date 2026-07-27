@@ -17,7 +17,7 @@ metadata:
 spec:
   entryPoints:
     - pg
-  ingressClassName: traefik-external
+  ingressClassName: traefik-internal
   tls:
     options:
       name: postgresql

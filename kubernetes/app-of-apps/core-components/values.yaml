@@ -1,12 +1,15 @@
 ---
 core_components:
   - name: argocd
+  - name: authelia
   - name: cert-manager
+  - name: crowdsec
   - name: external-secrets
   - name: github-arc-controller
     namespace: arc-system
   - name: github-arc-scale-set
     namespace: arc-runners
+  - name: lldap
   - name: longhorn
     namespace: longhorn-system
   - name: metallb
@@ -15,4 +18,9 @@ core_components:
     namespace: kube-system
   # - name: reflector
   - name: reloader
-  - name: traefik
+  - name: traefik-internal
+    namespace: traefik-internal
+    path: traefik/internal
+  - name: traefik-external
+    namespace: traefik-external
+    path: traefik/external

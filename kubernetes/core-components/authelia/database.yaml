@@ -1,0 +1,11 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: psql-cluster-authelia
+  namespace: prod
+spec:
+  name: authelia
+  owner: authelia
+  cluster:
+    name: psql-cluster

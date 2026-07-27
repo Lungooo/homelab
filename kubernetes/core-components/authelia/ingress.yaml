@@ -1,0 +1,30 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: authelia-internal-ingress
+spec:
+  entryPoints:
+    - websecure
+  ingressClassName: traefik-internal
+  routes:
+    - match: Host(`auth.home.lungoo.de`)
+      kind: Rule
+      services:
+        - name: authelia
+          port: 80
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: authelia-external-ingress
+spec:
+  entryPoints:
+    - websecure
+  ingressClassName: traefik-external
+  routes:
+    - match: Host(`auth.lungoo.dev`)
+      kind: Rule
+      services:
+        - name: authelia
+          port: 80

@@ -33,10 +33,13 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  ingressClassName: traefik-external
+  ingressClassName: traefik-internal
   routes:
     - match: Host(`adguardhome.home.lungoo.de`)
       kind: Rule
+      middlewares:
+        - name: forwardauth
+          namespace: authelia
       services:
         - name: adguardhome-service
           port: 80

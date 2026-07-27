@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: whoami
+        network/allow-external: "true"
     spec:
       containers:
         - name: whoami

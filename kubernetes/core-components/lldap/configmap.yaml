@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lldap-config
+data:
+  TZ: "Europe/Berlin"
+  LLDAP_LDAP_BASE_DN: "dc=lungoo,dc=dev"
+  LLDAP_HTTP_URL: "https://lldap.lungoo.dev"

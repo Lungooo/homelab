@@ -3,7 +3,6 @@ apiVersion: traefik.io/v1alpha1
 kind: TLSOption
 metadata:
   name: mintls13
-  namespace: traefik
 
 spec:
   minVersion: VersionTLS13
@@ -12,7 +11,6 @@ apiVersion: traefik.io/v1alpha1
 kind: TLSOption
 metadata:
   name: default
-  namespace: traefik
 
 spec:
   sniStrict: true
