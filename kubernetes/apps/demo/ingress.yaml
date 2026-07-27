@@ -13,3 +13,21 @@ spec:
       services:
         - name: whoami-service
           port: 80
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: whoami-ingress
+spec:
+  entryPoints:
+    - websecure
+  ingressClassName: traefik-external
+  routes:
+    - match: Host(`whoami.lungoo.dev`)
+      kind: Rule
+      middlewares:
+        - name: forward-auth
+          namespace: authelia
+      services:
+        - name: whoami-service
+          port: 80
