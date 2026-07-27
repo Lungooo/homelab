@@ -21,6 +21,7 @@ providers:
     enabled: true
     ingressClass: traefik-internal
     allowExternalNameServices: true
+    allowCrossNamespace: true
   kubernetesIngress:
     enabled: false
 

@@ -23,6 +23,7 @@ providers:
     enabled: true
     ingressClass: traefik-external
     allowExternalNameServices: true
+    allowCrossNamespace: true
   kubernetesIngress:
     enabled: false
 
@@ -68,7 +69,7 @@ ports:
         enabled: true
       middlewares:
         - traefik-external-securityheaders
-        - traefik-external-crowdsec
+        - crowdsec-bouncer
     proxyProtocol:
       trustedIPs:
         - 100.69.100.2/32
