@@ -4,7 +4,7 @@ kind: Kustomization
 
 images:
   - name: ghcr.io/valkey-io/valkey
-    newTag: 9.1.0@sha256:4963247afc4cd33c7d3b2d2816b9f7f8eeebab148d29056c2ca4d7cbc966f2d9
+    newTag: 9.1.1@sha256:3acc0687f2a2e1091fae6450d7842dd658c941338cf0a873ddd9e14b9e4ea4dd
 
 helmCharts:
   - namespace: authelia
