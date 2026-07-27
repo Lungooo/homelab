@@ -1,6 +1,7 @@
 ---
 core_components:
   - name: argocd
+  - name: authelia
   - name: cert-manager
   - name: crowdsec
   - name: external-secrets
@@ -8,6 +9,7 @@ core_components:
     namespace: arc-system
   - name: github-arc-scale-set
     namespace: arc-runners
+  - name: lldap
   - name: longhorn
     namespace: longhorn-system
   - name: metallb
