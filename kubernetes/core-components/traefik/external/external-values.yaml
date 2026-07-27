@@ -10,7 +10,8 @@ ingressRoute:
     entryPoints:
       - websecure
     middlewares:
-      - name: authelia-forwardauth
+      - name: forwardauth
+        namespace: authelia
     tls:
       secretName: lungoo-dev-tls
 
