@@ -27,7 +27,6 @@ spec:
                 values:
                   - authelia
                   - crowdsec
-                  - lldap
           podSelector:
             matchLabels:
               network/allow-external: "true"
