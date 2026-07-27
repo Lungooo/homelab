@@ -23,6 +23,9 @@ spec:
           image: ghcr.io/lldap/lldap
           imagePullPolicy: IfNotPresent
           ports:
+            - name: ldap
+              containerPort: 3890
+              protocol: TCP
             - name: http
               containerPort: 17170
               protocol: TCP

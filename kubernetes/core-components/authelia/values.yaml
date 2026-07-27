@@ -1,0 +1,55 @@
+---
+rbac:
+  enabled: true
+
+ingress:
+  enabled: false
+
+pod:
+  kind: Deployment
+  labels:
+    network/allow-external: 'true'
+  selectors:
+    nodeSelector:
+      node-role.kubernetes.io/control-plane: 'true'
+
+configMap:
+  log:
+    format: 'json'
+  totp:
+    issuer: 'Authelia <lungoo.dev>'
+  webauthn:
+    enable_passkey_login: true
+    display_name: 'Authelia <lungoo.dev>'
+  authentication_backend:
+    ldap:
+      enabled: true
+      implementation: 'lldap'
+      address: 'ldap://lldap.lldap:3890'
+      base_dn: 'DC=lungoo,dc=dev'
+      user: 'UID=authelia,OU=people,DC=lungoo,DC=dev'
+  session:
+    cookies:
+      - subdomain: 'auth'
+        domain: 'lungoo.dev'
+        same_site: 'lax'
+        inactivity: '30m'
+        expiration: '1d'
+    redis:
+      enabled: true
+      deploy: false
+      host: 'authelia-valkey'
+      password:
+        disabled: true
+  storage:
+    postgres:
+      enabled: true
+      deploy: false
+      address: tcp://psql-cluster-rw.prod:5432
+  notifier:
+    smtp:
+      enabled: true
+      sender: 'Authelia <authelia@lungoo.dev>'
+
+secret:
+  existingSecret: 'authelia-secret'
