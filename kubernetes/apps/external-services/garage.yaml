@@ -37,6 +37,9 @@ spec:
   routes:
     - match: Host(`garage.home.lungoo.de`)
       kind: Rule
+      middlewares:
+        - name: forwardauth
+          namespace: authelia
       services:
         - name: garage-webui-service
           port: 3909

@@ -10,6 +10,9 @@ spec:
   routes:
     - match: Host(`sabnzbd.home.lungoo.de`)
       kind: Rule
+      middlewares:
+        - name: forwardauth
+          namespace: authelia
       services:
         - name: sabnzbd
           port: 8080
@@ -25,6 +28,9 @@ spec:
   routes:
     - match: Host(`prowlarr.home.lungoo.de`)
       kind: Rule
+      middlewares:
+        - name: forwardauth
+          namespace: authelia
       services:
         - name: prowlarr
           port: 9696
@@ -40,6 +46,9 @@ spec:
   routes:
     - match: Host(`radarr.home.lungoo.de`)
       kind: Rule
+      middlewares:
+        - name: forwardauth
+          namespace: authelia
       services:
         - name: radarr
           port: 7878
@@ -55,6 +64,9 @@ spec:
   routes:
     - match: Host(`sonarr.home.lungoo.de`)
       kind: Rule
+      middlewares:
+        - name: forwardauth
+          namespace: authelia
       services:
         - name: sonarr
           port: 8989

@@ -27,6 +27,7 @@ spec:
                 values:
                   - authelia
                   - crowdsec
+                  - demo
           podSelector:
             matchLabels:
               network/allow-external: "true"

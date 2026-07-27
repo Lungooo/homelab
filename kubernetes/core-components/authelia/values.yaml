@@ -8,37 +8,59 @@ ingress:
 pod:
   kind: Deployment
   labels:
-    network/allow-external: 'true'
+    network/allow-external: "true"
   selectors:
     nodeSelector:
-      node-role.kubernetes.io/control-plane: 'true'
+      node-role.kubernetes.io/control-plane: "true"
 
 configMap:
   log:
-    format: 'json'
+    format: "json"
   totp:
-    issuer: 'Authelia <lungoo.dev>'
+    issuer: "Authelia <lungoo.dev>"
   webauthn:
     enable_passkey_login: true
-    display_name: 'Authelia <lungoo.dev>'
+    display_name: "Authelia <lungoo.dev>"
   authentication_backend:
     ldap:
       enabled: true
-      implementation: 'lldap'
-      address: 'ldap://lldap.lldap:3890'
-      base_dn: 'DC=lungoo,dc=dev'
-      user: 'UID=authelia,OU=people,DC=lungoo,DC=dev'
+      implementation: "lldap"
+      address: "ldap://lldap.lldap:3890"
+      base_dn: "DC=lungoo,dc=dev"
+      user: "UID=authelia,OU=people,DC=lungoo,DC=dev"
+  access_control:
+    default_policy: deny
+    rules:
+      - domain:
+          - "*.home.lungoo.de"
+          - "home.lungoo.de"
+          - "*.lungoo.dev"
+          - "lungoo.dev"
+        subject:
+          - "group:administrator"
+        policy: two_factor
+      - domain:
+          - "whoami.home.lungoo.de"
+          - "whoami.lungoo.dev"
+        subject:
+          - "group:users"
+        policy: two_factor
   session:
     cookies:
-      - subdomain: 'auth'
-        domain: 'lungoo.dev'
-        same_site: 'lax'
-        inactivity: '30m'
-        expiration: '1d'
+      - subdomain: "auth"
+        domain: "lungoo.dev"
+        same_site: "lax"
+        inactivity: "30m"
+        expiration: "1d"
+      - subdomain: "auth"
+        domain: "home.lungoo.de"
+        same_site: "lax"
+        inactivity: "30m"
+        expiration: "1d"
     redis:
       enabled: true
       deploy: false
-      host: 'authelia-valkey'
+      host: "authelia-valkey"
       password:
         disabled: true
   storage:
@@ -49,7 +71,7 @@ configMap:
   notifier:
     smtp:
       enabled: true
-      sender: 'Authelia <authelia@lungoo.dev>'
+      sender: "Authelia <authelia@lungoo.dev>"
 
 secret:
-  existingSecret: 'authelia-secret'
+  existingSecret: "authelia-secret"

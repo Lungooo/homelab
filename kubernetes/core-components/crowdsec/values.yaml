@@ -24,21 +24,20 @@ appsec:
 
   configs:
     lldap-override.yaml: |
-      name: custom/lldap-graphql-override
+      name: custom/authelia-secondfactor-override
       pre_eval:
-        - filter: req.URL.Path == "/api/graphql"
+        # Authelia TOTP Registration False Positive (PUT Method)
+        - filter: req.URL.Path startsWith "/api/secondfactor/"
           apply:
-            - RemoveOutBandRuleByID(932230)
-            - RemoveOutBandRuleByID(942190)
-            - RemoveInBandRuleByID(932230)
-            - RemoveInBandRuleByID(942190)
+            - RemoveOutBandRuleByID(911100)
+            - RemoveInBandRuleByID(911100)
 
   acquisitions:
     # Defines how AppSec receives HTTP security events
     - appsec_configs:
         - crowdsecurity/appsec-default # Default AppSec engine configuration
         - crowdsecurity/crs
-        - custom/lldap-graphql-override
+        - custom/authelia-secondfactor-override
       labels:
         type: appsec # Label used internally to identify AppSec events
       listen_addr: 0.0.0.0:7422 # Address/port where AppSec listens for events

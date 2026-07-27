@@ -10,7 +10,7 @@ ingressRoute:
     entryPoints:
       - websecure
     middlewares:
-      - name: dashboard-ipallowlist
+      - name: authelia-forwardauth
     tls:
       secretName: lungoo-dev-tls
 

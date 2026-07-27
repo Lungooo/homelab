@@ -9,6 +9,8 @@ ingressRoute:
     matchRule: Host(`traefik.home.lungoo.de`)
     entryPoints:
       - websecure
+    middlewares:
+      - name: authelia-forwardauth
     tls:
       secretName: home-lungoo-de-tls
 
