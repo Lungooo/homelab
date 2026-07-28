@@ -9,3 +9,8 @@
   value:
     key: identity_providers.oidc.jwk.RS256.pem
     path: identity_providers.oidc.jwk.RS256.pem
+- op: add
+  path: /spec/template/spec/volumes/2/secret/items/-
+  value:
+    key: identity_providers.oidc.actual-budget.client_secret
+    path: identity_providers.oidc.actual-budget.client_secret

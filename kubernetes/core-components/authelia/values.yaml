@@ -79,6 +79,29 @@ configMap:
       jwks:
         - key:
             path: "/secrets/internal/identity_providers.oidc.jwk.RS256.pem"
+      clients:
+        - client_id: "yWZ3V1fyYHVww8sYWVXrxFud2jLxkmWslHtXCxMT4oQO231HQ7ldUQANKphi6Sv3"
+          client_name: "Actual Budget"
+          client_secret:
+            path: "/secrets/internal/identity_providers.oidc.actual-budget.client_secret"
+          public: false
+          authorization_policy: "two_factor"
+          require_pkce: false
+          pkce_challenge_method: ""
+          redirect_uris:
+            - "https://actual-budget.home.lungoo.de/openid/callback"
+          scopes:
+            - "openid"
+            - "profile"
+            - "groups"
+            - "email"
+          response_types:
+            - "code"
+          grant_types:
+            - "authorization_code"
+          access_token_signed_response_alg: "none"
+          userinfo_signed_response_alg: "none"
+          token_endpoint_auth_method: "client_secret_basic"
 
 secret:
   existingSecret: "authelia-secret"
