@@ -102,6 +102,29 @@ configMap:
           access_token_signed_response_alg: "none"
           userinfo_signed_response_alg: "none"
           token_endpoint_auth_method: "client_secret_basic"
+        - client_id: "QSPNIra4FNEU9x64dmFlptgvsGF99jvare7Dz9DyHZWwJ5saxxjt7kEroHIZpfOv"
+          client_name: "Immich"
+          client_secret:
+            path: "/secrets/internal/identity_providers.oidc.immich.client_secret"
+          public: false
+          authorization_policy: "two_factor"
+          require_pkce: false
+          pkce_challenge_method: ""
+          redirect_uris:
+            - "https://immich.home.lungoo.de/auth/login"
+            - "https://immich.home.lungoo.de/user-settings"
+            - "app.immich:///oauth-callback"
+          scopes:
+            - "openid"
+            - "profile"
+            - "email"
+          response_types:
+            - "code"
+          grant_types:
+            - "authorization_code"
+          access_token_signed_response_alg: "none"
+          userinfo_signed_response_alg: "none"
+          token_endpoint_auth_method: "client_secret_post"
 
 secret:
   existingSecret: "authelia-secret"
