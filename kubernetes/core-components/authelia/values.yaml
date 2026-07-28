@@ -73,6 +73,12 @@ configMap:
     smtp:
       enabled: true
       sender: "Authelia <authelia@lungoo.dev>"
+  identity_providers:
+    oidc:
+      enabled: true
+      jwks:
+        - key:
+            path: "/secrets/internal/identity_providers.oidc.jwk.RS256.pem"
 
 secret:
   existingSecret: "authelia-secret"
