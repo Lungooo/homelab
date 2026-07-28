@@ -19,3 +19,8 @@
   value:
     key: identity_providers.oidc.immich.client_secret
     path: identity_providers.oidc.immich.client_secret
+- op: add
+  path: /spec/template/spec/volumes/2/secret/items/-
+  value:
+    key: identity_providers.oidc.paperless.client_secret
+    path: identity_providers.oidc.paperless.client_secret

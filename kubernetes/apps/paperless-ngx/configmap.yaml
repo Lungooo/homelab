@@ -21,3 +21,4 @@ data:
   PAPERLESS_FILENAME_FORMAT_REMOVE_NONE: "True"
   PAPERLESS_DBNAME: "paperless"
   PAPERLESS_DBUSER: "paperless"
+  PAPERLESS_APPS: "allauth.socialaccount.providers.openid_connect"
