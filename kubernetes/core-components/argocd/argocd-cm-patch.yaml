@@ -4,6 +4,18 @@ kind: ConfigMap
 metadata:
   name: argocd-cm
 data:
+  oidc.config: |
+    name: 'Authelia'
+    issuer: 'https://auth.home.lungoo.de'
+    clientID: 'fJWiJmdDLRiArZhkGtclNvbX3KBMShSyLhyT9WA690pqWHdPhMAGohVkfCp5IdI7'
+    clientSecret: $oidc-secret:oidc.auth0.clientSecret
+    cliClientID: 'aEnjdpsFfqAqIpZaj5bScoaWfwpTPHPwxCANKToF8PowY0ZZ4ZjzmnHfuGXzA6Y0'
+    requestedScopes:
+      - 'openid'
+      - 'email'
+      - 'groups'
+    enableUserInfoGroups: true
+    userInfoPath: '/api/oidc/userinfo'
   kustomize.buildOptions: "--enable-helm"
   application.instanceLabelKey: argocd.argoproj.io/instance
   resource.exclusions: >
