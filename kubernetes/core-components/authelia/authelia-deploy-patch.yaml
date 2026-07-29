@@ -5,6 +5,11 @@
     - secretRef:
         name: authelia-env-secret
 - op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: AUTHELIA_WEBAUTHN_EXPERIMENTAL_ENABLE_PASSKEY_UV_TWO_FACTORS
+    value: "true"
+- op: add
   path: /spec/template/spec/volumes/2/secret/items/-
   value:
     key: identity_providers.oidc.jwk.RS256.pem
