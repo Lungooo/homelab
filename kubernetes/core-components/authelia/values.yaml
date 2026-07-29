@@ -99,6 +99,8 @@ configMap:
             - "code"
           grant_types:
             - "authorization_code"
+          consent_mode: "auto"
+          pre_configured_consent_duration: "180d"
           access_token_signed_response_alg: "none"
           userinfo_signed_response_alg: "none"
           token_endpoint_auth_method: "client_secret_basic"
@@ -120,6 +122,8 @@ configMap:
             - "code"
           grant_types:
             - "authorization_code"
+          consent_mode: "auto"
+          pre_configured_consent_duration: "180d"
           access_token_signed_response_alg: "none"
           userinfo_signed_response_alg: "none"
           token_endpoint_auth_method: "client_secret_basic"
@@ -141,6 +145,8 @@ configMap:
           grant_types:
             - "authorization_code"
             - "refresh_token"
+          consent_mode: "auto"
+          pre_configured_consent_duration: "180d"
           access_token_signed_response_alg: "none"
           userinfo_signed_response_alg: "none"
           token_endpoint_auth_method: "none"
@@ -164,6 +170,8 @@ configMap:
             - "code"
           grant_types:
             - "authorization_code"
+          consent_mode: "auto"
+          pre_configured_consent_duration: "180d"
           access_token_signed_response_alg: "none"
           userinfo_signed_response_alg: "none"
           token_endpoint_auth_method: "client_secret_post"
@@ -186,6 +194,8 @@ configMap:
             - "code"
           grant_types:
             - "authorization_code"
+          consent_mode: "auto"
+          pre_configured_consent_duration: "180d"
           access_token_signed_response_alg: "none"
           userinfo_signed_response_alg: "none"
           token_endpoint_auth_method: "client_secret_basic"
