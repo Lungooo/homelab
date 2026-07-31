@@ -44,7 +44,7 @@ experimental:
     bouncer:
       moduleName: github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin
       # renovate: datasource=github-releases depName=maxlerebourg/crowdsec-bouncer-traefik-plugin
-      version: v1.7.0
+      version: v1.7.1
 
 volumes:
   - name: crowdsec-bouncer-key
