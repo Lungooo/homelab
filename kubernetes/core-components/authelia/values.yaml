@@ -73,6 +73,132 @@ configMap:
     smtp:
       enabled: true
       sender: "Authelia <authelia@lungoo.dev>"
+  identity_providers:
+    oidc:
+      enabled: true
+      jwks:
+        - key:
+            path: "/secrets/internal/identity_providers.oidc.jwk.RS256.pem"
+      clients:
+        - client_id: "yWZ3V1fyYHVww8sYWVXrxFud2jLxkmWslHtXCxMT4oQO231HQ7ldUQANKphi6Sv3"
+          client_name: "Actual Budget"
+          client_secret:
+            path: "/secrets/internal/identity_providers.oidc.actual-budget.client_secret"
+          public: false
+          authorization_policy: "two_factor"
+          require_pkce: false
+          pkce_challenge_method: ""
+          redirect_uris:
+            - "https://actual-budget.home.lungoo.de/openid/callback"
+          scopes:
+            - "openid"
+            - "profile"
+            - "groups"
+            - "email"
+          response_types:
+            - "code"
+          grant_types:
+            - "authorization_code"
+          consent_mode: "auto"
+          pre_configured_consent_duration: "180d"
+          access_token_signed_response_alg: "none"
+          userinfo_signed_response_alg: "none"
+          token_endpoint_auth_method: "client_secret_basic"
+        - client_id: "fJWiJmdDLRiArZhkGtclNvbX3KBMShSyLhyT9WA690pqWHdPhMAGohVkfCp5IdI7"
+          client_name: "Argo CD"
+          client_secret:
+            path: "/secrets/internal/identity_providers.oidc.argo-cd.client_secret"
+          public: false
+          authorization_policy: "two_factor"
+          require_pkce: false
+          pkce_challenge_method: ""
+          redirect_uris:
+            - "https://argocd.home.lungoo.de/auth/callback"
+          scopes:
+            - "openid"
+            - "groups"
+            - "email"
+          response_types:
+            - "code"
+          grant_types:
+            - "authorization_code"
+          consent_mode: "auto"
+          pre_configured_consent_duration: "180d"
+          access_token_signed_response_alg: "none"
+          userinfo_signed_response_alg: "none"
+          token_endpoint_auth_method: "client_secret_basic"
+        - client_id: "aEnjdpsFfqAqIpZaj5bScoaWfwpTPHPwxCANKToF8PowY0ZZ4ZjzmnHfuGXzA6Y0"
+          client_name: "Argo CD (CLI)"
+          public: true
+          authorization_policy: "two_factor"
+          require_pkce: true
+          pkce_challenge_method: "S256"
+          redirect_uris:
+            - "http://localhost:8085/auth/callback"
+          scopes:
+            - "openid"
+            - "offline_access"
+            - "groups"
+            - "email"
+          response_types:
+            - "code"
+          grant_types:
+            - "authorization_code"
+            - "refresh_token"
+          consent_mode: "auto"
+          pre_configured_consent_duration: "180d"
+          access_token_signed_response_alg: "none"
+          userinfo_signed_response_alg: "none"
+          token_endpoint_auth_method: "none"
+        - client_id: "QSPNIra4FNEU9x64dmFlptgvsGF99jvare7Dz9DyHZWwJ5saxxjt7kEroHIZpfOv"
+          client_name: "Immich"
+          client_secret:
+            path: "/secrets/internal/identity_providers.oidc.immich.client_secret"
+          public: false
+          authorization_policy: "two_factor"
+          require_pkce: false
+          pkce_challenge_method: ""
+          redirect_uris:
+            - "https://immich.home.lungoo.de/auth/login"
+            - "https://immich.home.lungoo.de/user-settings"
+            - "app.immich:///oauth-callback"
+          scopes:
+            - "openid"
+            - "profile"
+            - "email"
+          response_types:
+            - "code"
+          grant_types:
+            - "authorization_code"
+          consent_mode: "auto"
+          pre_configured_consent_duration: "180d"
+          access_token_signed_response_alg: "none"
+          userinfo_signed_response_alg: "none"
+          token_endpoint_auth_method: "client_secret_post"
+        - client_id: "18rXdrBapiFZtWGdLjQuj2G1SRAPsbbXgaWUhzGDL6KsPtQfx1CQ37yRAzPTlhSe"
+          client_name: "Paperless"
+          client_secret:
+            path: "/secrets/internal/identity_providers.oidc.paperless.client_secret"
+          public: false
+          authorization_policy: "two_factor"
+          require_pkce: true
+          pkce_challenge_method: "S256"
+          redirect_uris:
+            - "https://paperless.home.lungoo.de/accounts/oidc/authelia/login/callback/"
+          scopes:
+            - "openid"
+            - "profile"
+            - "email"
+            - "groups"
+          response_types:
+            - "code"
+          grant_types:
+            - "authorization_code"
+          consent_mode: "auto"
+          pre_configured_consent_duration: "180d"
+          access_token_signed_response_alg: "none"
+          userinfo_signed_response_alg: "none"
+          token_endpoint_auth_method: "client_secret_basic"
 
 secret:
   existingSecret: "authelia-secret"

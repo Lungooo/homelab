@@ -1,14 +1,36 @@
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: authelia
-  namespace: authelia
-spec:
-  template:
-    spec:
-      containers:
-        - name: authelia
-          envFrom:
-            - secretRef:
-                name: authelia-env-secret
+- op: add
+  path: /spec/template/spec/containers/0/envFrom
+  value:
+    - secretRef:
+        name: authelia-env-secret
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: AUTHELIA_WEBAUTHN_EXPERIMENTAL_ENABLE_PASSKEY_UV_TWO_FACTORS
+    value: "true"
+- op: add
+  path: /spec/template/spec/volumes/2/secret/items/-
+  value:
+    key: identity_providers.oidc.jwk.RS256.pem
+    path: identity_providers.oidc.jwk.RS256.pem
+- op: add
+  path: /spec/template/spec/volumes/2/secret/items/-
+  value:
+    key: identity_providers.oidc.actual-budget.client_secret
+    path: identity_providers.oidc.actual-budget.client_secret
+- op: add
+  path: /spec/template/spec/volumes/2/secret/items/-
+  value:
+    key: identity_providers.oidc.argo-cd.client_secret
+    path: identity_providers.oidc.argo-cd.client_secret
+- op: add
+  path: /spec/template/spec/volumes/2/secret/items/-
+  value:
+    key: identity_providers.oidc.immich.client_secret
+    path: identity_providers.oidc.immich.client_secret
+- op: add
+  path: /spec/template/spec/volumes/2/secret/items/-
+  value:
+    key: identity_providers.oidc.paperless.client_secret
+    path: identity_providers.oidc.paperless.client_secret

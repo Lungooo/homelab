@@ -26,4 +26,9 @@ resources:
   - serviceaccount.yaml
 
 patches:
-  - path: authelia-deploy-patch.yaml
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: authelia
+    path: authelia-deploy-patch.yaml
