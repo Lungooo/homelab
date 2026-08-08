@@ -12,7 +12,7 @@ images:
   - name: ghcr.io/linuxserver/radarr
     newTag: 6.3.0.10514-ls313@sha256:a45b5ab0f850f39edb4cc9c95bbd967b52ddc3d4574a4dfb45561177db6c88f4
   - name: ghcr.io/linuxserver/sonarr
-    newTag: 4.0.19.2979-ls320@sha256:24acea2956a0ccb11f103877d9f4f8576600fb34bff34820ed749c2256dab89f
+    newTag: 4.0.19.2979-ls321@sha256:373159ba768e23a3a1c497d9f2b936addf8fd5b1fdce7dd6a14080ac928bfda0
 
 resources:
   - configmaps.yaml
