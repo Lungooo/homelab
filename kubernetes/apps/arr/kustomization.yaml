@@ -4,7 +4,7 @@ kind: Kustomization
 
 images:
   - name: ghcr.io/linuxserver/sabnzbd
-    newTag: 5.0.4-ls260@sha256:3df6abbd61d82710f91997b66178405862939a4009e8db212fa4f0a7a65f2047
+    newTag: 5.1.0-ls266@sha256:b0f9755d795913bd26ae3f3a12805668ab0681ab847a7624568559c573fc7cae
   - name: public.ecr.aws/docker/library/busybox
     newTag: 1.38.0@sha256:1cfa4e2b09e127b9c4ed43578d3f3c18e7d44ea47b9ea98475c0cbe9086525f8
   - name: ghcr.io/linuxserver/prowlarr
