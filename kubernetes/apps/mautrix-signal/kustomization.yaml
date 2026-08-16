@@ -4,7 +4,7 @@ kind: Kustomization
 
 images:
   - name: dock.mau.dev/mautrix/signal
-    newTag: v26.07@sha256:e02b5c140346f2ecfa9a4a029cd7c0311dcb6d114d5aedfaaa88897ede9a9ee8
+    newTag: v26.08@sha256:edafbdfa23366715a5ca9e4c3a5d08efd01e1ff86212d683e1e5c16b681fa2f3
 
 configMapGenerator:
   - name: mautrix-signal-config
