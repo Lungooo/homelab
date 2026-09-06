@@ -10,7 +10,7 @@ images:
   - name: ghcr.io/linuxserver/prowlarr
     newTag: 2.5.2.5491-ls158@sha256:91844fa2c927ad6ede5630127183cc7868b175f6223e83e6a5da1fffea2aa782
   - name: ghcr.io/linuxserver/radarr
-    newTag: 6.3.0.10514-ls314@sha256:119aaa4a4f7349bcd2a136c5373a0d7925b5479915c7dfe0c0ad352db2a6d438
+    newTag: 6.3.0.10514-ls315@sha256:95ba0801df4d9d1d79d0d9a3849f656542497dab061d91b87ad4f53a71aff3ef
   - name: ghcr.io/linuxserver/sonarr
     newTag: 4.0.19.2979-ls323@sha256:4d9df314875e1249ab7d6170c2b9b3dc1d8e6383f168ceb10dc9a5ad9b324739
 
