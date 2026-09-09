@@ -13,7 +13,7 @@ helmCharts:
     repo: https://charts.authelia.com
     includeCRDs: true
     valuesFile: values.yaml
-    version: 0.11.20
+    version: 0.11.21
 
 resources:
   - database.yaml
