@@ -63,7 +63,6 @@ ports:
     proxyProtocol:
       trustedIPs:
         - 100.69.100.2/32
-        - fd7a:115c:a1e0::4a01:4779/128
   websecure:
     http:
       tls:
@@ -74,7 +73,6 @@ ports:
     proxyProtocol:
       trustedIPs:
         - 100.69.100.2/32
-        - fd7a:115c:a1e0::4a01:4779/128
 
 service:
   enabled: true

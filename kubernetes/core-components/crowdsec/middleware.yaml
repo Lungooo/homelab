@@ -9,11 +9,11 @@ spec:
       enabled: true
       crowdsecMode: stream
       crowdsecLapiScheme: http
-      crowdsecLapiHost: crowdsec-service.crowdsec.svc.cluster.local:8080
+      crowdsecLapiHost: crowdsec-service.crowdsec.svc.cluster.local.:8080
       crowdsecLapiKeyFile: /etc/traefik/crowdsec/BOUNCER_KEY_traefik
       httpTimeoutSeconds: 60
       forwardedheaderstrustedips: []
       crowdsecAppsecEnabled: true
-      crowdsecAppsecHost: crowdsec-appsec-service.crowdsec.svc.cluster.local:7422
+      crowdsecAppsecHost: crowdsec-appsec-service.crowdsec.svc.cluster.local.:7422
       crowdsecAppsecFailureBlock: true
       crowdsecAppsecUnreachableBlock: true

@@ -33,6 +33,17 @@ configMap:
     default_policy: deny
     rules:
       - domain:
+          - "radarr.home.lungoo.de"
+          - "sonarr.home.lungoo.de"
+        resources:
+          - "^/api([/?].*)?$"
+        policy: bypass
+      - domain:
+          - "adguardhome.home.lungoo.de"
+        resources:
+          - "^/dns-query([/?].*)?$"
+        policy: bypass
+      - domain:
           - "*.home.lungoo.de"
           - "home.lungoo.de"
           - "*.lungoo.dev"
