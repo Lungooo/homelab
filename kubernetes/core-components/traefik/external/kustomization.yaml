@@ -13,4 +13,4 @@ helmCharts:
 
 resources:
   - ../base
-  - networkpolicy.yaml
+  # - networkpolicy.yaml
