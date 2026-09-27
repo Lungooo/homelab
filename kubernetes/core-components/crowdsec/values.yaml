@@ -32,7 +32,7 @@ appsec:
             - RemoveOutBandRuleByID(911100)
             - RemoveInBandRuleByID(911100)
     jellyfin-override.yaml: |
-      name: custom/jellyfin-progress-override
+      name: custom/jellyfin-overrides
       pre_eval:
         # Jellyfin Session Progress False Positive
         - filter: req.URL.Path == "/Sessions/Playing/Progress"
@@ -40,13 +40,19 @@ appsec:
             - RemoveOutBandRuleByID(932370)
             - RemoveInBandRuleByID(932370)
 
+        # Jellyfin Active Encodings Stop False Positive (DELETE Method 911100)
+        - filter: req.URL.Path == "/Videos/ActiveEncodings"
+          apply:
+            - RemoveOutBandRuleByID(911100)
+            - RemoveInBandRuleByID(911100)
+
   acquisitions:
     # Defines how AppSec receives HTTP security events
     - appsec_configs:
         - crowdsecurity/appsec-default # Default AppSec engine configuration
         - crowdsecurity/crs
         - custom/authelia-secondfactor-override
-        - custom/jellyfin-progress-override
+        - custom/jellyfin-overrides
       labels:
         type: appsec # Label used internally to identify AppSec events
       listen_addr: 0.0.0.0:7422 # Address/port where AppSec listens for events
