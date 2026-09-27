@@ -16,7 +16,7 @@ jobs:
     runs-on: arc-runner-set
     name: Find changed workflow files
     container:
-      image: alpine/k8s:1.37.0@sha256:b421c2e9419edb98db39b6ab641669f4db7bb2acf354f22450c6b7e7176d1ff4
+      image: alpine/k8s:1.37.1@sha256:712dc5385d1c1a3f83b747fa9e40f64d433a97f72ff42f9755ff7dd1f62846e4
     outputs:
       workflows_matrix: ${{ steps.changed-workflows.outputs.workflows_matrix }}
     steps:
@@ -68,7 +68,7 @@ jobs:
     name: Validation result
     needs: validation
     container:
-      image: alpine/k8s:1.37.0@sha256:b421c2e9419edb98db39b6ab641669f4db7bb2acf354f22450c6b7e7176d1ff4
+      image: alpine/k8s:1.37.1@sha256:712dc5385d1c1a3f83b747fa9e40f64d433a97f72ff42f9755ff7dd1f62846e4
     steps:
       - name: Set status based on build
         run: |
