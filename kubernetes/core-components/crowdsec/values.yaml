@@ -46,6 +46,7 @@ appsec:
         - crowdsecurity/appsec-default # Default AppSec engine configuration
         - crowdsecurity/crs
         - custom/authelia-secondfactor-override
+        - custom/jellyfin-progress-override
       labels:
         type: appsec # Label used internally to identify AppSec events
       listen_addr: 0.0.0.0:7422 # Address/port where AppSec listens for events
