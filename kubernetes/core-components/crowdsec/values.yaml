@@ -31,6 +31,14 @@ appsec:
           apply:
             - RemoveOutBandRuleByID(911100)
             - RemoveInBandRuleByID(911100)
+    jellyfin-override.yaml: |
+      name: custom/jellyfin-progress-override
+      pre_eval:
+        # Jellyfin Session Progress False Positive
+        - filter: req.URL.Path == "/Sessions/Playing/Progress"
+          apply:
+            - RemoveOutBandRuleByID(932370)
+            - RemoveInBandRuleByID(932370)
 
   acquisitions:
     # Defines how AppSec receives HTTP security events
