@@ -49,7 +49,7 @@ jobs:
     name: Validate ${{ matrix.workflow }}
     needs: changed-workflows
     container:
-      image: pipelinecomponents/yamllint:0.35.13@sha256:5ab5eb7da0ed5e606b07c1723fc8b275e925189f70ac259b26b7329cb5f8f44d
+      image: pipelinecomponents/yamllint:0.35.26@sha256:c985ff1a12d11cae0ef9e3f2129e9a28eb203d261ed1a43fb193c1e2a15199ac
     strategy:
       matrix:
         workflow: ${{ fromJSON(needs.changed-workflows.outputs.workflows_matrix) }}
