@@ -54,3 +54,18 @@ spec:
       targetPort: 8989
       protocol: TCP
       name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mediathekarr
+spec:
+  type: ClusterIP
+  clusterIP: 10.43.255.201
+  selector:
+    app.kubernetes.io/name: mediathekarr
+  ports:
+    - port: 5007
+      targetPort: 5007
+      protocol: TCP
+      name: http
