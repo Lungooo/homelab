@@ -41,3 +41,16 @@ data:
   SONARR__POSTGRES__USER: "sonarr"
   SONARR__POSTGRES__MAINDB: "sonarr"
   SONARR__LOG__DBENABLED: "false"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: umlautadaptarr-config
+data:
+  SONARR__ENABLED: "true"
+  SONARR__HOST: "http://10.0.50.103:8989"
+  RADARR__ENABLED: "true"
+  RADARR__HOST: "http://10.0.50.102:7878"
+  READARR__ENABLED: "false"
+  LIDARR__ENABLED: "false"
+  IpLeakTest__Enabled: "true"
