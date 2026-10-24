@@ -43,8 +43,7 @@ spec:
               subPath: 03_media/07_mediathekarr
       volumes:
         - name: mediathekarr-config
-          persistentVolumeClaim:
-            claimName: mediathekarr-config-pvc
+          emptyDir: {}
         - name: data-nfs
           persistentVolumeClaim:
             claimName: data-nfs-pvc
