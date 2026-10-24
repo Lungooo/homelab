@@ -61,6 +61,7 @@ metadata:
   name: mediathekarr
 spec:
   type: ClusterIP
+  clusterIP: 10.43.255.201
   selector:
     app.kubernetes.io/name: mediathekarr
   ports:
