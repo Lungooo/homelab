@@ -54,3 +54,11 @@ data:
   READARR__ENABLED: "false"
   LIDARR__ENABLED: "false"
   IpLeakTest__Enabled: "true"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mediathekarr-config
+data:
+  DOWNLOAD_COMPLETE_PATH: "/nfs/data/03_media/07_mediathekarr/01_complete"
+  DOWNLOAD_INCOMPLETE_PATH: "/nfs/data/03_media/07_mediathekarr/02_incomplete"

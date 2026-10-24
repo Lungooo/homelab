@@ -15,10 +15,13 @@ images:
     newTag: 4.0.20.3014-ls329@sha256:44b06045a98bc1f237b9ffefc4b28dab64cb29305e4a2a94875ae93b5224e4cc
   - name: docker.io/pcjones/umlautadaptarr
     newTag: 0.7.6@sha256:67da75db94795ef250b6a3ec9ddd25f3d0848329d48c0b8884762069ae93d08c
+  - name: docker.io/pcjones/mediathekarr
+    newTag: beta@sha256:3ed7e1487810e1519301bd56a0c420e260e428295b029a47806c0397e4a52a33
 
 resources:
   - configmaps.yaml
   - databases.yaml
+  - deployment-mediathekarr.yaml
   - deployment-prowlarr.yaml
   - deployment-radarr.yaml
   - deployment-sabnzbd.yaml
