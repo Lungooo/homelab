@@ -1,0 +1,51 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mediathekarr
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mediathekarr
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mediathekarr
+    spec:
+      serviceAccountName: arr
+      automountServiceAccountToken: false
+      containers:
+        - name: mediathekarr
+          image: docker.io/pcjones/mediathekarr
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 5007
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: arr-config
+            - configMapRef:
+                name: mediathekarr-config
+          resources:
+            limits:
+              memory: 1Gi
+            requests:
+              memory: 256Mi
+          volumeMounts:
+            - name: mediathekarr-config
+              mountPath: /app/config
+            - name: data-nfs
+              mountPath: /nfs/data/03_media/07_mediathekarr
+              subPath: 03_media/07_mediathekarr
+      volumes:
+        - name: mediathekarr-config
+          emptyDir: {}
+        - name: data-nfs
+          persistentVolumeClaim:
+            claimName: data-nfs-pvc
+      nodeSelector:
+        worker: "true"

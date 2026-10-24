@@ -1,0 +1,83 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: umlautadaptarr
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: umlautadaptarr
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: umlautadaptarr
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |
+          [{
+            "name": "opnsense-vpn-vlan",
+            "namespace": "kube-system",
+            "ips": ["10.0.50.104/24"],
+            "default-route": ["10.0.50.1"]
+          }]
+    spec:
+      serviceAccountName: arr
+      automountServiceAccountToken: false
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - "84.200.69.80"
+          - "9.9.9.9"
+          - "1.1.1.1"
+      initContainers:
+        - name: configure-default-route
+          image: public.ecr.aws/docker/library/busybox
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            privileged: true
+          command:
+            - "/bin/sh"
+            - "-c"
+            - |
+              echo "Disabling IPv6 for Pod"
+
+              sysctl -w net.ipv6.conf.all.disable_ipv6=1
+
+              echo "Getting ip address of default gateway"
+              ETH0_GW=$(ip route show default dev eth0 | grep "default" | awk '{print $3}')
+              echo "ip address of default gateway: $ETH0_GW"
+
+              echo "Adding route for kubernetes services"
+              ip route add 10.43.0.0/16 via $ETH0_GW dev eth0
+              echo "10.43.0.0/16 -> $ETH0_GW applied successfuly"
+
+              echo "Replacing default route with 10.0.50.1"
+              ip route replace default via 10.0.50.1 dev net1
+              echo "0.0.0.0/0 -> 10.0.50.1 applied successfuly"
+      containers:
+        - name: umlautadaptarr
+          image: docker.io/pcjones/umlautadaptarr
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 5005
+              protocol: TCP
+            - name: proxy
+              containerPort: 5006
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: arr-config
+            - configMapRef:
+                name: umlautadaptarr-config
+            - secretRef:
+                name: umlautadaptarr-secret
+          resources:
+            limits:
+              memory: 512Mi
+            requests:
+              memory: 128Mi
+      nodeSelector:
+        worker: "true"

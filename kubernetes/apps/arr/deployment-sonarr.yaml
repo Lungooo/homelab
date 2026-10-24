@@ -35,6 +35,9 @@ spec:
         - ip: 10.43.255.200
           hostnames:
             - "psql-cluster-arr-rw.prod"
+        - ip: 10.43.255.201
+          hostnames:
+            - "mediathekarr.arr"
       initContainers:
         - name: configure-default-route
           image: public.ecr.aws/docker/library/busybox
