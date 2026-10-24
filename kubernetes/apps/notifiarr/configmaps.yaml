@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: notifiarr-config
+data:
+  TZ: "Europe/Berlin"
+  DN_BIND_ADDR: "0.0.0.0:5454"
+  DN_QUIET: "false"
+  # Authentication is handled by authelia; trust its remote-user header from in-cluster proxies
+  DN_UI_PASSWORD: "webauth:remote-user"
+  DN_UPSTREAMS_0: "10.42.0.0/16"
+  DN_UPSTREAMS_1: "fd87:5445:bcc6:0100::/56"
+  DN_PROWLARR_0_NAME: "Prowlarr"
+  DN_PROWLARR_0_URL: "http://prowlarr.arr:9696"
+  DN_RADARR_0_NAME: "Radarr"
+  DN_RADARR_0_URL: "http://radarr.arr:7878"
+  DN_SONARR_0_NAME: "Sonarr"
+  DN_SONARR_0_URL: "http://sonarr.arr:8989"
+  DN_SABNZBD_0_NAME: "SABnzbd"
+  DN_SABNZBD_0_URL: "http://sabnzbd.arr:8080"

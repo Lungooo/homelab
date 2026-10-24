@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: notifiarr
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: notifiarr
+  ports:
+    - port: 5454
+      targetPort: 5454
+      protocol: TCP
+      name: http

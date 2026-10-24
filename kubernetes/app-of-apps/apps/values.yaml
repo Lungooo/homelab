@@ -12,6 +12,7 @@ apps:
   - name: mautrix-signal
   - name: mautrix-telegram
   - name: mautrix-whatsapp
+  - name: notifiarr
   - name: paperless-ngx
     namespace: paperless
   - name: seerr

@@ -1,0 +1,15 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+images:
+  - name: ghcr.io/notifiarr/notifiarr
+    newTag: 0.9.7@sha256:2b0a8784d8a43177cbc5a19110e7eb066d9321572c3352eda79c0a89898c7735
+
+resources:
+  - configmaps.yaml
+  - deployment.yaml
+  - ingress.yaml
+  - secrets.yaml
+  - service.yaml
+  - serviceaccount.yaml

@@ -1,0 +1,18 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: notifiarr-ingress
+spec:
+  entryPoints:
+    - websecure
+  ingressClassName: traefik-internal
+  routes:
+    - match: Host(`notifiarr.home.lungoo.de`)
+      kind: Rule
+      middlewares:
+        - name: forwardauth
+          namespace: authelia
+      services:
+        - name: notifiarr
+          port: 5454
