@@ -38,6 +38,9 @@ spec:
         - ip: 10.43.255.201
           hostnames:
             - "mediathekarr.arr"
+        - ip: 10.43.255.202
+          hostnames:
+            - "jellyfin.jellyfin"
       initContainers:
         - name: configure-default-route
           image: public.ecr.aws/docker/library/busybox
