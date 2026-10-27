@@ -1,0 +1,26 @@
+---
+# Discord webhook in shoutrrr format: discord://<token>@<webhook-id>
+extraEnvVars:
+  - name: KURED_NOTIFY_URL
+    valueFrom:
+      secretKeyRef:
+        name: kured-notify
+        key: KURED_NOTIFY_URL
+
+configuration:
+  # needs-restarting exits 1 when a reboot is required, but kured reboots on exit 0.
+  # Only map exactly 1 to 0, so dnf errors don't trigger reboots.
+  rebootSentinelCommand: sh -c '/usr/bin/dnf -q needs-restarting -r > /dev/null; test $? -eq 1'
+  useRebootSentinelHostPath: false
+  timeZone: Europe/Berlin
+  startTime: "2:00"
+  endTime: "5:00"
+  # check often enough that several nodes fit into one window
+  period: 10m
+  concurrency: 1
+  # if a PDB blocks the drain: abort, uncordon and retry on the next period
+  drainTimeout: 30m
+  forceReboot: false
+  # give Longhorn time to rebuild replicas before the next node goes down
+  lockReleaseDelay: 10m
+  annotateNodes: true

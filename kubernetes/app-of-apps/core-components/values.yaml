@@ -9,6 +9,7 @@ core_components:
     namespace: arc-system
   - name: github-arc-scale-set
     namespace: arc-runners
+  - name: kured
   - name: lldap
   - name: longhorn
     namespace: longhorn-system
