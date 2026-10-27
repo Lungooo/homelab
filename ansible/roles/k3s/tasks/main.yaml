@@ -1,0 +1,97 @@
+---
+- name: Set k3s node facts
+  ansible.builtin.set_fact:
+    k3s_is_server: "{{ inventory_hostname in groups['k3s_server'] }}"
+    k3s_service_name: "{{ 'k3s' if inventory_hostname in groups['k3s_server'] else 'k3s-agent' }}"
+
+- name: Add Rancher k3s-selinux repository
+  ansible.builtin.yum_repository:
+    name: rancher-k3s-common-stable
+    file: rancher-k3s-common
+    description: Rancher K3s Common (stable)
+    baseurl: 'https://rpm.rancher.io/k3s/stable/common/centos/{{ k3s_selinux_el_version }}/noarch'
+    enabled: true
+    gpgcheck: true
+    repo_gpgcheck: false
+    gpgkey: https://rpm.rancher.io/public.key
+
+- name: Install SELinux policies
+  ansible.builtin.package:
+    name:
+      - container-selinux
+      - k3s-selinux
+    state: present
+
+- name: Install k3s binary
+  ansible.builtin.get_url:
+    url: 'https://github.com/k3s-io/k3s/releases/download/{{ k3s_version | urlencode }}/k3s'
+    dest: '/usr/local/bin/k3s'
+    owner: root
+    group: root
+    mode: '0755'
+    setype: container_runtime_exec_t
+    checksum: 'sha256:https://github.com/k3s-io/k3s/releases/download/{{ k3s_version | urlencode }}/sha256sum-amd64.txt'
+  notify: Restart k3s
+
+- name: Link k3s tools
+  ansible.builtin.file:
+    state: link
+    src: k3s
+    dest: '/usr/local/bin/{{ item }}'
+  loop:
+    - kubectl
+    - crictl
+    - ctr
+
+- name: Read join token from first server
+  ansible.builtin.slurp:
+    src: /var/lib/rancher/k3s/server/node-token
+  delegate_to: "{{ groups['k3s_server'][0] }}"
+  register: k3s_node_token
+  when: inventory_hostname != groups['k3s_server'][0]
+
+- name: Create k3s config directory
+  ansible.builtin.file:
+    state: directory
+    path: /etc/rancher/k3s
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Copy k3s config
+  ansible.builtin.template:
+    src: config.yaml.j2
+    dest: /etc/rancher/k3s/config.yaml
+    owner: root
+    group: root
+    mode: '0600'
+  notify: Restart k3s
+
+- name: Install systemd service
+  ansible.builtin.template:
+    src: k3s.service.j2
+    dest: '/etc/systemd/system/{{ k3s_service_name }}.service'
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart k3s
+
+- name: Remove legacy k3sup environment file
+  ansible.builtin.file:
+    state: absent
+    path: '/etc/systemd/system/{{ k3s_service_name }}.service.env'
+  notify: Restart k3s
+
+- name: Restart k3s if needed
+  ansible.builtin.meta: flush_handlers
+
+- name: Wait for node to be ready
+  ansible.builtin.command:
+    cmd: '/usr/local/bin/k3s kubectl wait --for=condition=Ready node/{{ inventory_hostname }} --timeout=30s'
+  delegate_to: "{{ groups['k3s_server'][0] }}"
+  register: k3s_node_ready
+  until: k3s_node_ready.rc == 0
+  retries: 20
+  delay: 10
+  changed_when: false
+  check_mode: false
