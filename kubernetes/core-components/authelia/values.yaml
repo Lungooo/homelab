@@ -35,6 +35,7 @@ configMap:
       - domain:
           - "radarr.home.lungoo.de"
           - "sonarr.home.lungoo.de"
+          - "sabnzbd.home.lungoo.de"
         resources:
           - "^/api([/?].*)?$"
         policy: bypass
