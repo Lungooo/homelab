@@ -1,6 +1,6 @@
 ---
 # renovate: datasource=github-releases depName=k3s-io/k3s versioning=regex:^v(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)\+k3s(?<build>\d+)$
-k3s_version: v1.36.2+k3s1
+k3s_version: v1.37.1+k3s1
 k3s_api_endpoint: 10.0.10.200
 k3s_cluster_cidr: 10.42.0.0/16,fd87:5445:bcc6:0100::/56
 k3s_service_cidr: 10.43.0.0/16,fd87:5445:bcc6:0200::/112
