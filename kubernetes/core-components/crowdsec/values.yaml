@@ -6,6 +6,23 @@ secrets:
     name: "crowdsec-secret"
     csLapiSecretKey: "CS_LAPI_SECRET"
     registrationTokenKey: "REGISTRATION_TOKEN"
+# Agents and appsec authenticate to LAPI with cert-manager certificates instead of
+# registering under their pod name, which fails after a node reboot ("user already exist")
+tls:
+  enabled: true
+  certManager:
+    secretTemplate:
+      # Workaround: the chart renders an empty secretTemplate/annotations (null) on certificates
+      # without reflector namespaces, which fails schema validation
+      annotations:
+        homelab.lungoo.de/issued-by: crowdsec-chart
+  agent:
+    tlsClientAuth: true
+  bouncer:
+    # ca.crt of this secret lets the Traefik bouncer verify the LAPI certificate
+    reflector:
+      namespaces:
+        - traefik-external
 agent:
   # Specify each pod whose logs you want to process
   acquisition:
@@ -86,6 +103,9 @@ lapi:
         secretKeyRef:
           name: crowdsec-secret
           key: DB_PASSWORD
+    # The chart issues the appsec client certificate with OU appsec-ou
+    - name: AGENTS_ALLOWED_OU
+      value: "agent-ou,appsec-ou"
   persistentVolume:
     data:
       enabled: false

@@ -17,7 +17,7 @@ core_components:
     namespace: metallb-system
   - name: multus-cni
     namespace: kube-system
-  # - name: reflector
+  - name: reflector
   - name: reloader
   - name: traefik-internal
     namespace: traefik-internal
