@@ -4,19 +4,18 @@
 
 **GitOps-managed home infrastructure — a k3s cluster driven by Argo CD, with Ansible for everything that isn't Kubernetes.**
 
-[![AlmaLinux](https://img.shields.io/badge/AlmaLinux-red?style=for-the-badge&logo=almalinux&logoColor=white)](https://almalinux.org/)&nbsp;&nbsp;
-[![Ansible](https://img.shields.io/badge/Ansible-red?style=for-the-badge&logo=ansible&logoColor=white)](https://ansible.com/)&nbsp;&nbsp;
-[![Kubernetes](https://img.shields.io/badge/Kubernetes-red?style=for-the-badge&logo=kubernetes&logoColor=white)](https://kubernetes.io/)&nbsp;&nbsp;
-[![k3s](https://img.shields.io/badge/k3s-red?style=for-the-badge&logo=k3s&logoColor=white)](https://k3s.io/)
+[![Ansible](https://img.shields.io/badge/Ansible-EE0000?style=flat&logo=ansible&logoColor=white)](https://ansible.com/)&nbsp;&nbsp;
+[![Argo CD](https://img.shields.io/badge/Argo%20CD-EF7B4D?style=flat&logo=argo&logoColor=white)](https://argo-cd.readthedocs.io/)&nbsp;&nbsp;
+[![Forgejo](https://img.shields.io/badge/Forgejo-FB923C?style=flat&logo=forgejo&logoColor=white)](https://forgejo.org/)&nbsp;&nbsp;
+[![k3s](https://gist.githubusercontent.com/Lungooo/5ec603c683d92941895ea14302c06d0f/raw/1a6a35ab08c3f8dba886dac28b1101d0b1005472/k3s.svg)](https://k3s.io/)&nbsp;&nbsp;
+[![AlmaLinux](https://img.shields.io/badge/AlmaLinux-4CA30D?style=flat&logo=almalinux&logoColor=white)](https://almalinux.org/)&nbsp;&nbsp;
+[![Traefik](https://img.shields.io/badge/Traefik-24A1C1?style=flat&logo=traefikproxy&logoColor=white)](https://traefik.io/)&nbsp;&nbsp;
+[![Renovate](https://img.shields.io/badge/Renovate-308BE3?style=flat&logo=renovate&logoColor=white)](https://docs.renovatebot.com/)&nbsp;&nbsp;
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=flat&logo=kubernetes&logoColor=white)](https://kubernetes.io/)&nbsp;&nbsp;
+[![Longhorn](https://img.shields.io/badge/Longhorn-5F224A?style=flat&logo=longhorn&logoColor=white)](https://longhorn.io/)&nbsp;&nbsp;
 
-[![Argo CD](https://img.shields.io/badge/Argo%20CD-red?style=for-the-badge&logo=argo&logoColor=white)](https://argo-cd.readthedocs.io/)&nbsp;&nbsp;
-[![Traefik](https://img.shields.io/badge/Traefik-red?style=for-the-badge&logo=traefikproxy&logoColor=white)](https://traefik.io/)&nbsp;&nbsp;
-[![Longhorn](https://img.shields.io/badge/Longhorn-red?style=for-the-badge&logo=longhorn&logoColor=white)](https://longhorn.io/)&nbsp;&nbsp;
-[![Forgejo](https://img.shields.io/badge/Forgejo-red?style=for-the-badge&logo=forgejo&logoColor=white)](https://forgejo.org/)&nbsp;&nbsp;
-[![Renovate](https://img.shields.io/badge/Renovate-red?style=for-the-badge&logo=renovate&logoColor=white)](https://docs.renovatebot.com/)
-
-[![License](https://img.shields.io/github/license/Lungooo/homelab?style=flat-square&color=red)](LICENSE)&nbsp;
-[![Last commit](https://img.shields.io/github/last-commit/Lungooo/homelab?style=flat-square&color=red)](https://github.com/Lungooo/homelab/commits/main)
+[![License](https://img.shields.io/github/license/lungooo/homelab?style=flat&color=red)](LICENSE)&nbsp;
+[![Last commit](https://img.shields.io/github/last-commit/Lungooo/homelab?style=flat&color=red)](https://github.com/Lungooo/homelab/commits/main)
 
 </div>
 
@@ -53,6 +52,8 @@ Argo CD uses an **app-of-apps** pattern: two root `Application`s (`apps` and `co
 | [Longhorn](https://longhorn.io/) | Replicated block storage with snapshots and backups |
 | [CloudNativePG](https://cloudnative-pg.io/) | Shared PostgreSQL cluster for all apps |
 | [Reloader](https://github.com/stakater/Reloader) | Rolls pods when ConfigMaps/Secrets change |
+| [Reflector](https://github.com/emberstack/kubernetes-reflector) | Mirrors Secrets/ConfigMaps across namespaces |
+| [kured](https://kured.dev/) | Reboots nodes one at a time after OS updates, within a nightly window |
 | [Actions Runner Controller](https://github.com/actions/actions-runner-controller) | Self-hosted GitHub Actions runners for CI |
 
 ### Applications
