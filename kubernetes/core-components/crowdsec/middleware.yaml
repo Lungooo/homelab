@@ -8,12 +8,15 @@ spec:
     bouncer:
       enabled: true
       crowdsecMode: stream
-      crowdsecLapiScheme: http
+      crowdsecLapiScheme: https
       crowdsecLapiHost: crowdsec-service.crowdsec.svc.cluster.local.:8080
+      crowdsecLapiTLSCertificateAuthorityFile: /etc/traefik/crowdsec-tls/ca.crt
       crowdsecLapiKeyFile: /etc/traefik/crowdsec/BOUNCER_KEY_traefik
       httpTimeoutSeconds: 60
       forwardedheaderstrustedips: []
       crowdsecAppsecEnabled: true
+      # Defaults to crowdsecLapiScheme, but appsec itself still serves plain HTTP
+      crowdsecAppsecScheme: http
       crowdsecAppsecHost: crowdsec-appsec-service.crowdsec.svc.cluster.local.:7422
       crowdsecAppsecFailureBlock: true
       crowdsecAppsecUnreachableBlock: true

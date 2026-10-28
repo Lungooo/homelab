@@ -9,6 +9,8 @@
     name: 'dnf-automatic.timer'
     enabled: true
     state: started
+  # The timer unit only exists once the package task above has actually run
+  ignore_errors: '{{ ansible_check_mode }}'
 
 - name: Configure autoupdates.
   ansible.builtin.lineinfile:

@@ -1,0 +1,17 @@
+---
+# Servers first, one node at a time, to keep etcd quorum and the Kubernetes version skew policy
+- name: Manage k3s servers
+  hosts: k3s_server
+  become: true
+  serial: 1
+  roles:
+    - role: k3s
+    - role: alma-auto-update
+
+- name: Manage k3s agents
+  hosts: k3s_agent
+  become: true
+  serial: 1
+  roles:
+    - role: k3s
+    - role: alma-auto-update

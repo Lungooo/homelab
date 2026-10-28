@@ -2,6 +2,9 @@
 deployment:
   enabled: true
   replicas: 3
+  annotations:
+    # The bouncer plugin only reads the CA on startup, so restart Traefik when cert-manager rotates it
+    secret.reloader.stakater.com/reload: "crowdsec-bouncer-tls"
 
 ingressRoute:
   dashboard:
@@ -51,6 +54,11 @@ volumes:
     mountPath: /etc/traefik/crowdsec
     type: secret
     secretName: crowdsec-bouncer-key
+  # Reflected from the crowdsec namespace, provides the CA of the LAPI certificate
+  - name: crowdsec-bouncer-tls
+    mountPath: /etc/traefik/crowdsec-tls
+    type: secret
+    secretName: crowdsec-bouncer-tls
 
 ports:
   web:
