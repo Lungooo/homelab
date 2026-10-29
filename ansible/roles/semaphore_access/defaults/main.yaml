@@ -1,0 +1,3 @@
+---
+semaphore_access_user: semaphore
+semaphore_access_public_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB4D3kwBJFz4UQI1iBz1riYUrFZ5WaZSkRWdHgqmNnOd semaphore@k3s

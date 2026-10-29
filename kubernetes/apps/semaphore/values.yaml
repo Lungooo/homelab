@@ -1,0 +1,91 @@
+---
+general:
+  host: "https://semaphore.home.lungoo.de"
+  # Web login only via Authelia OIDC; the local admin stays usable via the CLI
+  passwordLoginDisable: true
+
+# Workdir only holds repository clones
+persistence:
+  enabled: false
+
+# The chart generates these with lookup/randAlphaNum, which isn't stable under kustomize
+secrets:
+  existingSecret: semaphore-general-secret
+runner:
+  existingSecret: semaphore-runner-secret
+
+database:
+  type: postgres
+  host: psql-cluster-rw.prod
+  port: 5432
+  name: semaphore
+  # Reflected from the prod namespace, shared with the CNPG DatabaseRole
+  existingSecret: psql-cluster-semaphore-role
+  options:
+    sslmode: require
+
+admin:
+  create: true
+  existingSecret: semaphore-admin-secret
+
+oidc:
+  enable: true
+  providers:
+    authelia:
+      display_name: "Sign in with Authelia"
+      provider_url: "https://auth.home.lungoo.de"
+      client_id: "q3iHXuAVevtKoOwzl9jL6r4TOEAOqAxwTwXtdaW407dwmq5yX6JUtxha2uEFvnde"
+      client_secret_file: "/secrets/oidc/client_secret"
+      redirect_url: "https://semaphore.home.lungoo.de/api/auth/oidc/authelia/redirect"
+      scopes:
+        - "openid"
+        - "profile"
+        - "email"
+      username_claim: "preferred_username"
+      name_claim: "name"
+      email_claim: "email"
+      order: 1
+
+email:
+  alert: true
+  sender: "Semaphore <semaphore@lungoo.dev>"
+  host: "smtp.mailbox.org"
+  port: "465"
+  secure: true
+  existingSecret: semaphore-smtp-secret
+
+extraEnvVariables:
+  TZ: "Europe/Berlin"
+  SEMAPHORE_EMAIL_TLS: "true"
+
+extraVolumes:
+  - name: oidc
+    secret:
+      secretName: semaphore-oidc-secret
+  - name: ssh-key
+    secret:
+      secretName: semaphore-ssh-key
+      defaultMode: 0440
+  - name: ansible-vars
+    secret:
+      secretName: semaphore-ansible-vars
+
+extraVolumeMounts:
+  - name: oidc
+    mountPath: /secrets/oidc
+    readOnly: true
+  - name: ssh-key
+    mountPath: /secrets/ssh
+    readOnly: true
+  - name: ansible-vars
+    mountPath: /secrets/ansible
+    readOnly: true
+
+resources:
+  limits:
+    memory: 1Gi
+  requests:
+    memory: 256Mi
+
+nodeSelector:
+  worker: "true"

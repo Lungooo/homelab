@@ -1,12 +1,15 @@
 ---
 - name: Install forgejo binary
   ansible.builtin.get_url:
-    url: 'https://codeberg.org/forgejo/forgejo/releases/download/v{{ forgejo_version }}/forgejo-{{ forgejo_version }}-{{ forgejo_package_type }}'
+    url: '{{ forgejo_download_url }}'
     dest: '/usr/local/bin/forgejo'
     owner: root
     group: root
     mode: '0755'
-    checksum: 'sha256:https://codeberg.org/forgejo/forgejo/releases/download/v{{ forgejo_version }}/forgejo-{{ forgejo_version }}-{{ forgejo_package_type }}.sha256'
+    checksum: 'sha256:{{ forgejo_download_url }}.sha256'
+  vars:
+    forgejo_download_url: >-
+      https://codeberg.org/forgejo/forgejo/releases/download/v{{ forgejo_version }}/forgejo-{{ forgejo_version }}-{{ forgejo_package_type }}
   notify: Restart Forgejo
 
 - name: Install git and git-lfs

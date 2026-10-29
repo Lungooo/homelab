@@ -39,3 +39,6 @@ almalinux:
   hosts:
     forgejo:
       ansible_host: 10.0.10.101
+      forgejo_use_https: true
+      forgejo_domain: forgejo.home.lungoo.de
+      forgejo_ssh_domain: 10.0.10.101

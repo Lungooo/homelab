@@ -91,6 +91,14 @@ configMap:
       jwks:
         - key:
             path: "/secrets/internal/identity_providers.oidc.jwk.RS256.pem"
+      claims_policies:
+        # Semaphore only reads claims from the ID token, not from userinfo
+        semaphore:
+          id_token:
+            - "email"
+            - "email_verified"
+            - "name"
+            - "preferred_username"
       clients:
         - client_id: "yWZ3V1fyYHVww8sYWVXrxFud2jLxkmWslHtXCxMT4oQO231HQ7ldUQANKphi6Sv3"
           client_name: "Actual Budget"
@@ -202,6 +210,30 @@ configMap:
             - "profile"
             - "email"
             - "groups"
+          response_types:
+            - "code"
+          grant_types:
+            - "authorization_code"
+          consent_mode: "auto"
+          pre_configured_consent_duration: "180d"
+          access_token_signed_response_alg: "none"
+          userinfo_signed_response_alg: "none"
+          token_endpoint_auth_method: "client_secret_basic"
+        - client_id: "q3iHXuAVevtKoOwzl9jL6r4TOEAOqAxwTwXtdaW407dwmq5yX6JUtxha2uEFvnde"
+          client_name: "Semaphore"
+          client_secret:
+            path: "/secrets/internal/identity_providers.oidc.semaphore.client_secret"
+          public: false
+          authorization_policy: "two_factor"
+          claims_policy: "semaphore"
+          require_pkce: false
+          pkce_challenge_method: ""
+          redirect_uris:
+            - "https://semaphore.home.lungoo.de/api/auth/oidc/authelia/redirect"
+          scopes:
+            - "openid"
+            - "profile"
+            - "email"
           response_types:
             - "code"
           grant_types:

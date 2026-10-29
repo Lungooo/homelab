@@ -1,0 +1,15 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: semaphore-ingress
+spec:
+  entryPoints:
+    - websecure
+  ingressClassName: traefik-internal
+  routes:
+    - match: Host(`semaphore.home.lungoo.de`)
+      kind: Rule
+      services:
+        - name: semaphore
+          port: 3000
