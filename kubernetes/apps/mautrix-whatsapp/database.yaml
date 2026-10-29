@@ -1,5 +1,18 @@
 ---
 apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: psql-cluster-mautrix-whatsapp
+  namespace: prod
+spec:
+  cluster:
+    name: psql-cluster
+  name: mautrix_whatsapp
+  login: true
+  passwordSecret:
+    name: psql-cluster-mautrix-whatsapp-role
+---
+apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
   name: psql-cluster-mautrix-whatsapp
@@ -9,4 +22,3 @@ spec:
   owner: mautrix_whatsapp
   cluster:
     name: psql-cluster
-

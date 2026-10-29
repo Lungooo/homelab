@@ -1,5 +1,44 @@
 ---
 apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: psql-cluster-prowlarr
+  namespace: prod
+spec:
+  cluster:
+    name: psql-cluster
+  name: prowlarr
+  login: true
+  passwordSecret:
+    name: psql-cluster-prowlarr-role
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: psql-cluster-radarr
+  namespace: prod
+spec:
+  cluster:
+    name: psql-cluster
+  name: radarr
+  login: true
+  passwordSecret:
+    name: psql-cluster-radarr-role
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: psql-cluster-sonarr
+  namespace: prod
+spec:
+  cluster:
+    name: psql-cluster
+  name: sonarr
+  login: true
+  passwordSecret:
+    name: psql-cluster-sonarr-role
+---
+apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
   name: psql-cluster-prowlarr

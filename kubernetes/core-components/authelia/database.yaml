@@ -1,5 +1,18 @@
 ---
 apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: psql-cluster-authelia
+  namespace: prod
+spec:
+  cluster:
+    name: psql-cluster
+  name: authelia
+  login: true
+  passwordSecret:
+    name: psql-cluster-authelia-role
+---
+apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
   name: psql-cluster-authelia

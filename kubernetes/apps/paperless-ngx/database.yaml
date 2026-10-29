@@ -1,5 +1,18 @@
 ---
 apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: psql-cluster-paperless
+  namespace: prod
+spec:
+  cluster:
+    name: psql-cluster
+  name: paperless
+  login: true
+  passwordSecret:
+    name: psql-cluster-paperless-role
+---
+apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
   name: psql-cluster-paperless

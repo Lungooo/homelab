@@ -1,5 +1,18 @@
 ---
 apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: psql-cluster-immich
+  namespace: prod
+spec:
+  cluster:
+    name: psql-cluster
+  name: immich
+  login: true
+  passwordSecret:
+    name: psql-cluster-immich-role
+---
+apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
   name: psql-cluster-immich
