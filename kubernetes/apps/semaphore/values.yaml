@@ -1,6 +1,8 @@
 ---
 general:
   host: "https://semaphore.home.lungoo.de"
+  # Web login only via Authelia OIDC; the local admin stays usable via the CLI
+  passwordLoginDisable: true
 
 # Workdir only holds repository clones
 persistence:
@@ -44,8 +46,17 @@ oidc:
       email_claim: "email"
       order: 1
 
+email:
+  alert: true
+  sender: "Semaphore <semaphore@lungoo.dev>"
+  host: "smtp.mailbox.org"
+  port: "465"
+  secure: true
+  existingSecret: semaphore-smtp-secret
+
 extraEnvVariables:
   TZ: "Europe/Berlin"
+  SEMAPHORE_EMAIL_TLS: "true"
 
 extraVolumes:
   - name: oidc
