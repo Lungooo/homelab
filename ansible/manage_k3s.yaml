@@ -7,6 +7,7 @@
   roles:
     - role: k3s
     - role: alma-auto-update
+    - role: semaphore_access
 
 - name: Manage k3s agents
   hosts: k3s_agent
@@ -15,3 +16,4 @@
   roles:
     - role: k3s
     - role: alma-auto-update
+    - role: semaphore_access

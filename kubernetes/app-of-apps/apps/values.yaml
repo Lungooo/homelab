@@ -15,5 +15,6 @@ apps:
   - name: notifiarr
   - name: paperless-ngx
     namespace: paperless
+  - name: semaphore
   - name: seerr
   - name: uc-intg-manager

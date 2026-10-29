@@ -1,0 +1,24 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: psql-cluster-semaphore
+  namespace: prod
+spec:
+  cluster:
+    name: psql-cluster
+  name: semaphore
+  login: true
+  passwordSecret:
+    name: psql-cluster-semaphore-role
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: psql-cluster-semaphore
+  namespace: prod
+spec:
+  name: semaphore
+  owner: semaphore
+  cluster:
+    name: psql-cluster

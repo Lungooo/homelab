@@ -1,6 +1,8 @@
 ---
-- hosts: forgejo
+- name: Manage Forgejo
+  hosts: forgejo
   become: true
   roles:
     - role: forgejo
     - role: alma-auto-update
+    - role: semaphore_access

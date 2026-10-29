@@ -211,6 +211,29 @@ configMap:
           access_token_signed_response_alg: "none"
           userinfo_signed_response_alg: "none"
           token_endpoint_auth_method: "client_secret_basic"
+        - client_id: "q3iHXuAVevtKoOwzl9jL6r4TOEAOqAxwTwXtdaW407dwmq5yX6JUtxha2uEFvnde"
+          client_name: "Semaphore"
+          client_secret:
+            path: "/secrets/internal/identity_providers.oidc.semaphore.client_secret"
+          public: false
+          authorization_policy: "two_factor"
+          require_pkce: false
+          pkce_challenge_method: ""
+          redirect_uris:
+            - "https://semaphore.home.lungoo.de/api/auth/oidc/authelia/redirect"
+          scopes:
+            - "openid"
+            - "profile"
+            - "email"
+          response_types:
+            - "code"
+          grant_types:
+            - "authorization_code"
+          consent_mode: "auto"
+          pre_configured_consent_duration: "180d"
+          access_token_signed_response_alg: "none"
+          userinfo_signed_response_alg: "none"
+          token_endpoint_auth_method: "client_secret_basic"
 
 secret:
   existingSecret: "authelia-secret"
