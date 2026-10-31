@@ -74,6 +74,24 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
+  name: sonarr-uhd-ingress
+spec:
+  entryPoints:
+    - websecure
+  ingressClassName: traefik-internal
+  routes:
+    - match: Host(`sonarr-uhd.home.lungoo.de`)
+      kind: Rule
+      middlewares:
+        - name: forwardauth
+          namespace: authelia
+      services:
+        - name: sonarr-uhd
+          port: 8989
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
   name: mediathekarr-ingress
 spec:
   entryPoints:

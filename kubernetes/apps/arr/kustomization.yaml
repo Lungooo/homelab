@@ -13,6 +13,9 @@ images:
     newTag: 6.4.4.10685-ls324@sha256:084b3b2ab1d0ef930660727259546a241f2bdf67c9ed085d54bf1486a6887c9b
   - name: ghcr.io/linuxserver/sonarr
     newTag: 4.0.20.3014-ls329@sha256:44b06045a98bc1f237b9ffefc4b28dab64cb29305e4a2a94875ae93b5224e4cc
+  - name: sonarr-uhd
+    newName: ghcr.io/linuxserver/sonarr
+    newTag: develop-5.0.0.2870-ls205@sha256:7c365bc209ee4c0975665fc8ad3ba8f7acd93ef3508a4b7104ee917a5ad7ee51
   - name: docker.io/pcjones/umlautadaptarr
     newTag: 0.7.6@sha256:67da75db94795ef250b6a3ec9ddd25f3d0848329d48c0b8884762069ae93d08c
   - name: docker.io/pcjones/mediathekarr
@@ -26,6 +29,7 @@ resources:
   - deployment-radarr.yaml
   - deployment-sabnzbd.yaml
   - deployment-sonarr.yaml
+  - deployment-sonarr-uhd.yaml
   - deployment-umlautadaptarr.yaml
   - ingress.yaml
   - nfs-volumes.yaml

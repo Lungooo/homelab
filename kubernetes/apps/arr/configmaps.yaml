@@ -45,6 +45,17 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  name: sonarr-uhd-config
+data:
+  SONARR__AUTH__METHOD: "External"
+  SONARR__POSTGRES__HOST: "psql-cluster-arr-rw.prod"
+  SONARR__POSTGRES__USER: "sonarr_uhd"
+  SONARR__POSTGRES__MAINDB: "sonarr_uhd"
+  SONARR__LOG__DBENABLED: "false"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
   name: umlautadaptarr-config
 data:
   SONARR__ENABLED: "true"

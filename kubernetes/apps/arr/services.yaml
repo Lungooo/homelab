@@ -58,6 +58,20 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: sonarr-uhd
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: sonarr-uhd
+  ports:
+    - port: 8989
+      targetPort: 8989
+      protocol: TCP
+      name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: mediathekarr
 spec:
   type: ClusterIP
