@@ -16,8 +16,6 @@ images:
   - name: sonarr-uhd
     newName: ghcr.io/linuxserver/sonarr
     newTag: develop-5.0.0.2870-ls205@sha256:7c365bc209ee4c0975665fc8ad3ba8f7acd93ef3508a4b7104ee917a5ad7ee51
-  - name: docker.io/pcjones/umlautadaptarr
-    newTag: 0.7.6@sha256:67da75db94795ef250b6a3ec9ddd25f3d0848329d48c0b8884762069ae93d08c
   - name: docker.io/pcjones/mediathekarr
     newTag: beta@sha256:3ed7e1487810e1519301bd56a0c420e260e428295b029a47806c0397e4a52a33
 
@@ -30,7 +28,6 @@ resources:
   - deployment-sabnzbd.yaml
   - deployment-sonarr.yaml
   - deployment-sonarr-uhd.yaml
-  - deployment-umlautadaptarr.yaml
   - ingress.yaml
   - nfs-volumes.yaml
   - pvcs.yaml
