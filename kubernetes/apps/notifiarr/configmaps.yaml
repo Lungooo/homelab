@@ -17,5 +17,7 @@ data:
   DN_RADARR_0_URL: "http://radarr.arr:7878"
   DN_SONARR_0_NAME: "Sonarr"
   DN_SONARR_0_URL: "http://sonarr.arr:8989"
+  DN_SONARR_1_NAME: "Sonarr UHD"
+  DN_SONARR_1_URL: "http://sonarr-uhd.arr:8989"
   DN_SABNZBD_0_NAME: "SABnzbd"
   DN_SABNZBD_0_URL: "http://sabnzbd.arr:8080"
