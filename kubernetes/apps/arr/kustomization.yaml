@@ -11,6 +11,9 @@ images:
     newTag: 2.7.0.5723-ls166@sha256:04be30163fbaf48d6aeee7b5893c9f6614ffbad6d853971df0d6dcdf01c7f104
   - name: ghcr.io/linuxserver/radarr
     newTag: 6.4.4.10685-ls324@sha256:084b3b2ab1d0ef930660727259546a241f2bdf67c9ed085d54bf1486a6887c9b
+  - name: radarr-uhd
+    newName: ghcr.io/linuxserver/radarr
+    newTag: develop-7.0.1.10859-ls276@sha256:d5c7960330e9af3ae97be9e52cf2e3a123ae3fb76001390ee7d112b02017fa9a
   - name: ghcr.io/linuxserver/sonarr
     newTag: 4.0.20.3014-ls329@sha256:44b06045a98bc1f237b9ffefc4b28dab64cb29305e4a2a94875ae93b5224e4cc
   - name: sonarr-uhd
@@ -25,6 +28,7 @@ resources:
   - deployment-mediathekarr.yaml
   - deployment-prowlarr.yaml
   - deployment-radarr.yaml
+  - deployment-radarr-uhd.yaml
   - deployment-sabnzbd.yaml
   - deployment-sonarr.yaml
   - deployment-sonarr-uhd.yaml

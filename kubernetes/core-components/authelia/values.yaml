@@ -34,6 +34,7 @@ configMap:
     rules:
       - domain:
           - "radarr.home.lungoo.de"
+          - "radarr-uhd.home.lungoo.de"
           - "sonarr.home.lungoo.de"
           - "sonarr-uhd.home.lungoo.de"
           - "sabnzbd.home.lungoo.de"

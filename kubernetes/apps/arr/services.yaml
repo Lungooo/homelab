@@ -44,6 +44,20 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: radarr-uhd
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: radarr-uhd
+  ports:
+    - port: 7878
+      targetPort: 7878
+      protocol: TCP
+      name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: sonarr
 spec:
   type: ClusterIP

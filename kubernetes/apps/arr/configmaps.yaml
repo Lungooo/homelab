@@ -34,6 +34,17 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  name: radarr-uhd-config
+data:
+  RADARR__AUTH__METHOD: "External"
+  RADARR__POSTGRES__HOST: "psql-cluster-arr-rw.prod"
+  RADARR__POSTGRES__USER: "radarr_uhd"
+  RADARR__POSTGRES__MAINDB: "radarr_uhd"
+  RADARR__LOG__DBENABLED: "false"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
   name: sonarr-config
 data:
   SONARR__AUTH__METHOD: "External"

@@ -28,6 +28,19 @@ spec:
 apiVersion: postgresql.cnpg.io/v1
 kind: DatabaseRole
 metadata:
+  name: psql-cluster-radarr-uhd
+  namespace: prod
+spec:
+  cluster:
+    name: psql-cluster
+  name: radarr_uhd
+  login: true
+  passwordSecret:
+    name: psql-cluster-radarr-uhd-role
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
   name: psql-cluster-sonarr
   namespace: prod
 spec:
@@ -70,6 +83,17 @@ metadata:
 spec:
   name: radarr
   owner: radarr
+  cluster:
+    name: psql-cluster
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: psql-cluster-radarr-uhd
+  namespace: prod
+spec:
+  name: radarr_uhd
+  owner: radarr_uhd
   cluster:
     name: psql-cluster
 ---
