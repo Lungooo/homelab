@@ -4,7 +4,7 @@ kind: Kustomization
 
 images:
   - name: ghcr.io/jackjpowell/uc-intg-manager
-    newTag: v3.2.2@sha256:aca03e243de37c60d91f798643f26e51a98c6666501c29b5df12e3d27bdcd15d
+    newTag: v3.3.0@sha256:4a8be66a639c346063ac59b22fc89295a28b4c0b1fb6b6e3c9311468074c6962
 
 resources:
   - deployment.yaml
