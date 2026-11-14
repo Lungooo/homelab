@@ -18,4 +18,5 @@ apps:
     namespace: paperless
   - name: semaphore
   - name: seerr
+  - name: sure
   - name: uc-intg-manager

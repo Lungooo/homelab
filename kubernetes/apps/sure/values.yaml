@@ -1,0 +1,100 @@
+---
+rails:
+  existingSecret: sure-app-secret
+  encryptionEnv:
+    enabled: true
+  settings:
+    SELF_HOSTED: "true"
+    ONBOARDING_STATE: "closed"
+    AUTH_JIT_MODE: "create_and_link"
+    AUTH_LOCAL_LOGIN_ENABLED: "false"
+    AUTH_LOCAL_ADMIN_OVERRIDE_ENABLED: "true"
+    OIDC_ISSUER: "https://auth.home.lungoo.de"
+    OIDC_CLIENT_ID: "3a9qjOwAWPC0DnFPMkAojO6ymMAQU6J5abD4ogcuXsqVkSWb0BfXf2hThmjcIqx9"
+    OIDC_REDIRECT_URI: "https://sure.home.lungoo.de/auth/openid_connect/callback"
+    OIDC_BUTTON_LABEL: "Sign in with Authelia"
+    # OPENAI_URI_BASE: "http://llama-cpu.llm.svc.cluster.local:8080/v1"
+    # OPENAI_MODEL: "ministral-3-8b"
+    LLM_CONTEXT_WINDOW: "8192"
+    ASSISTANT_TYPE: "mcp_only"
+    # CPU inference is slow; the 60s default would time out categorization batches
+    OPENAI_REQUEST_TIMEOUT: "600"
+    OPENAI_SUPPORTS_PDF_PROCESSING: "true"
+    ACTIVE_STORAGE_SERVICE: "generic_s3"
+    GENERIC_S3_ENDPOINT: "https://s3.home.lungoo.de"
+    GENERIC_S3_BUCKET: "sure"
+    GENERIC_S3_REGION: "de-fra-1"
+    GENERIC_S3_FORCE_PATH_STYLE: "true"
+  extraEnvVars:
+    - name: DATABASE_URL
+      valueFrom:
+        secretKeyRef:
+          name: sure-app-secret
+          key: DATABASE_URL
+    - name: REDIS_URL
+      valueFrom:
+        secretKeyRef:
+          name: sure-app-secret
+          key: REDIS_URL
+    - name: OIDC_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: sure-app-secret
+          key: OIDC_CLIENT_SECRET
+    - name: GENERIC_S3_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: sure-app-secret
+          key: GENERIC_S3_ACCESS_KEY_ID
+    - name: GENERIC_S3_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: sure-app-secret
+          key: GENERIC_S3_SECRET_ACCESS_KEY
+    # - name: OPENAI_ACCESS_TOKEN
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: llama-cpu-api-key
+    #       key: api-key
+
+cnpg:
+  enabled: false
+  cluster:
+    enabled: false
+redisOperator:
+  enabled: false
+  managed:
+    enabled: false
+redisSimple:
+  enabled: false
+
+migrations:
+  strategy: initContainer
+  initContainer:
+    args: |
+      DB_HOST=$(echo "$DATABASE_URL" | sed 's/.*@//; s/:.*//')
+      until pg_isready -h "$DB_HOST" -p 5432; do echo "Waiting for DB..."; sleep 5; done
+      echo "Preparing database (db:prepare)" && \
+      DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rake db:prepare
+
+web:
+  replicas: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      memory: 1Gi
+  nodeSelector:
+    worker: "true"
+
+worker:
+  replicas: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      memory: 1Gi
+  nodeSelector:
+    worker: "true"

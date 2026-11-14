@@ -243,6 +243,30 @@ configMap:
           access_token_signed_response_alg: "none"
           userinfo_signed_response_alg: "none"
           token_endpoint_auth_method: "client_secret_basic"
+        - client_id: "3a9qjOwAWPC0DnFPMkAojO6ymMAQU6J5abD4ogcuXsqVkSWb0BfXf2hThmjcIqx9"
+          client_name: "Sure"
+          client_secret:
+            path: "/secrets/internal/identity_providers.oidc.sure.client_secret"
+          public: false
+          authorization_policy: "two_factor"
+          require_pkce: true
+          pkce_challenge_method: "S256"
+          redirect_uris:
+            - "https://sure.home.lungoo.de/auth/openid_connect/callback"
+          scopes:
+            - "openid"
+            - "email"
+            - "profile"
+            - "groups"
+          response_types:
+            - "code"
+          grant_types:
+            - "authorization_code"
+          consent_mode: "auto"
+          pre_configured_consent_duration: "180d"
+          access_token_signed_response_alg: "none"
+          userinfo_signed_response_alg: "none"
+          token_endpoint_auth_method: "client_secret_basic"
 
 secret:
   existingSecret: "authelia-secret"

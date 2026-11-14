@@ -1,0 +1,78 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sure-valkey
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sure-valkey
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: sure-valkey
+    spec:
+      serviceAccountName: sure-valkey
+      automountServiceAccountToken: false
+      containers:
+        - name: valkey
+          image: ghcr.io/valkey-io/valkey
+          imagePullPolicy: IfNotPresent
+          # Sidekiq requires noeviction, otherwise queued jobs can silently disappear.
+          # maxmemory stays well below the limit to leave room for copy-on-write
+          # during AOF rewrites.
+          args:
+            - "valkey-server"
+            - "/etc/valkey/valkey.conf"
+            - "--maxmemory"
+            - "128mb"
+            - "--maxmemory-policy"
+            - "noeviction"
+            - "--appendonly"
+            - "yes"
+          env:
+            - name: VALKEYCLI_AUTH
+              valueFrom:
+                secretKeyRef:
+                  name: sure-valkey-secret
+                  key: password
+          livenessProbe:
+            exec:
+              command: ["valkey-cli", "ping"]
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command: ["valkey-cli", "ping"]
+          ports:
+            - name: valkey
+              containerPort: 6379
+              protocol: TCP
+          resources:
+            limits:
+              memory: 256Mi
+            requests:
+              memory: 128Mi
+          volumeMounts:
+            - name: valkey-data
+              mountPath: /data
+            - name: valkey-config
+              mountPath: /etc/valkey
+              readOnly: true
+      volumes:
+        - name: valkey-data
+          persistentVolumeClaim:
+            claimName: valkey-sure-pvc
+        - name: valkey-config
+          secret:
+            secretName: sure-valkey-secret
+            items:
+              - key: valkey.conf
+                path: valkey.conf
+      nodeSelector:
+        worker: "true"

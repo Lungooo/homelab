@@ -1,0 +1,27 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: psql-cluster-sure
+  namespace: prod
+spec:
+  cluster:
+    name: psql-cluster
+  name: sure
+  login: true
+  passwordSecret:
+    name: psql-cluster-sure-role
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: psql-cluster-sure
+  namespace: prod
+spec:
+  name: sure
+  owner: sure
+  cluster:
+    name: psql-cluster
+  extensions:
+    - name: pgcrypto
+      ensure: present
