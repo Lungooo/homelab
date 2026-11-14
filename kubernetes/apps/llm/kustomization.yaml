@@ -1,0 +1,14 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+images:
+  - name: ghcr.io/ggml-org/llama.cpp
+    newTag: server-v1.0.0-b12359-b1b770d@sha256:e3032ea0712da96dec820c770626385de4322dd06619fb5829256a504bbc9375
+
+resources:
+  - deployment.yaml
+  - pvc.yaml
+  - secrets.yaml
+  - service.yaml
+  - serviceaccount.yaml

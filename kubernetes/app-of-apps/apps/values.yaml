@@ -9,6 +9,7 @@ apps:
   - name: external-services
   - name: immich
   - name: jellyfin
+  - name: llm
   - name: mautrix-signal
   - name: mautrix-telegram
   - name: mautrix-whatsapp
