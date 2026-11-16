@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sure-initializers
+data:
+  zz_yahoo_user_agent.rb: |
+    Rails.application.config.to_prepare do
+      Provider::YahooFinance.class_eval do
+        private
+
+        def random_user_agent
+          ENV.fetch("YAHOO_FINANCE_USER_AGENT", "Mozilla/5.0")
+        end
+      end
+    end

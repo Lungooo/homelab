@@ -1,0 +1,18 @@
+---
+- op: add
+  path: /metadata/annotations
+  value:
+    reloader.stakater.com/auto: "true"
+- op: add
+  path: /spec/template/spec/volumes/-
+  value:
+    name: initializers
+    configMap:
+      name: sure-initializers
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/-
+  value:
+    name: initializers
+    mountPath: /rails/config/initializers/zz_yahoo_user_agent.rb
+    subPath: zz_yahoo_user_agent.rb
+    readOnly: true

@@ -17,15 +17,14 @@ images:
 
 patches:
   - target:
+      group: apps
+      version: v1
       kind: Deployment
       name: sure-(web|worker)
-    patch: |-
-      - op: add
-        path: /metadata/annotations
-        value:
-          reloader.stakater.com/auto: "true"
+    path: sure-deploy-patch.yaml
 
 resources:
+  - configmap.yaml
   - database.yaml
   - deployment-valkey.yaml
   - ingress.yaml
