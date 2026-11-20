@@ -10,7 +10,7 @@ images:
   - name: docker.io/gotenberg/gotenberg
     newTag: 8.40.0@sha256:53073e798c8ef39ea2187e44cb67bab77894ea2509100b94c4fe3b461f7b2996
   - name: docker.io/apache/tika
-    newTag: 3.3.3.0@sha256:326b238b37904c94ff61fed87afe0af72e6a29fa715933b10af97b7d56f1d4cb
+    newTag: 3.3.3.1@sha256:3049611264bb18cf66e6629f59818cad75ea5d46f770c504ae46537949838c67
 
 resources:
   - configmap.yaml
